@@ -1,0 +1,223 @@
+﻿{extend name="IndexPublic:public"/}
+{block name="title"}
+    购物车
+{/block}
+
+{block name="index"}
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no" /> 
+  <title></title> 
+  <!--css类引用--> 
+  <link rel="stylesheet" href="/static/carts/css/cart.css" /> 
+  <script type="text/javascript" src="/static/carts/js/jquery-1.8.3.min.js"></script>
+
+  <style type="text/css">
+    table td{
+      text-align: center;
+    }
+  </style>
+ </head> 
+ <body> 
+  <!--主要内容--> 
+    <div class="cart">
+      <div class="wrap">
+              <!--购物车空-->
+              <div class="cart-none" style="display:block;">
+                  <p>
+                    <b>购物车是空的，去买点东西吧！<a href="/index/index">去购物&gt;&gt;</a></b>
+                    <br><br><br>
+                    <img src="/static/carts/img/empty.jpg" width="200px" height="150px">
+                  </p>
+              </div>
+      </div>
+  </div>
+  <!--js类引用-->  
+ </body>
+ <script type="text/javascript">
+  getAllPrice();
+
+
+ 	//全选 全不选
+ 	$(".chkAll").click(function(){
+    //全选
+    if($(this).attr("checked")){
+      $("#tt").find("tr").each(function(){
+        
+        $(this).find(":checkbox").attr("checked",true);
+
+      });
+      // $(".chkAll").attr("checked",true);
+      
+    }else{ //全不选
+
+      $("#tt").find("tr").each(function(){
+        $(this).find(":checkbox").attr("checked",false);
+      });
+      // $(".chkAll").attr("checked",false);
+      
+    }
+    getAllPrice();
+	});
+
+  //选中单个商品
+  $(".son").click(function () {
+        //总的checkbox的个数
+        var len=$(".son").length;
+        //已选中的checkbox的个数
+        var checkedLen=$("input[type='checkbox'][name='checked_goods']:checked").length;
+        if(len==checkedLen){
+            $('#chkAll').prop('checked', true);
+        }else{
+            $('#chkAll').prop('checked', false);
+        }
+        getAllPrice();
+  })
+
+
+  //删除选中的商品
+  $(".del").click(function(){
+    arr=[];
+    
+    $(".son").each(function(){
+    
+      if($(this).attr("checked")){
+    
+        id=$(this).parents("tr").prev().val();
+        // alert(id);
+        arr.push(id);
+      }
+    });
+    // console.log(arr);
+    //ajax
+    $.get("/homecarts/del",{arr:arr},function(data){
+      // alert(data);
+      if(data==1){
+        alert("删除成功");
+
+        for(var i=0;i<arr.length;i++){
+          $("input[value="+arr[i]+"]").next("tr").remove();
+        }
+
+      }else{
+        alert("删除失败");
+      }
+    });
+  });
+
+  //清空购物车
+  $(".alldel").click(function(){
+    $.get("/homecarts/alldel",function(data){
+      if(data==1){
+        alert("购物车已清空");
+        $(".cart-table").find("tr").each(function(){
+          $(this).remove();
+        });
+        getAllPrice();
+      }else{
+        alert("清空失败");
+      }
+    });
+  });
+
+
+  //商品数量减
+  $(".decrement").click(function(){
+    //数量减
+    var i=$(this).next().val();
+    i=(i>1)?(i=i-1):i=1;
+    
+    var id=$(this).parents("tr").prev().val();
+    // alert(id);
+    var o=$(this);
+    // alert(111);
+    $.get("/homecarts/addnum",{num:i,id:id},function(data){
+      // alert(data);
+      if(data){
+        o.next().val(i);
+        var total=parseInt(o.parents(".cart-t-num").prev().find("span").html())*i;
+        // alert(total);
+        o.parents(".cart-t-num").next().find("span").html(total);
+        getAllPrice();
+      }
+    });
+    
+  })
+
+  //商品数量加
+  $(".increment").click(function(){
+    //数量加
+    var i=$(this).prev().val();
+    i++;
+    var id=$(this).parents("tr").prev().val();
+    var o=$(this);
+    $.get("/homecarts/addnum",{num:i,id:id},function(data){
+      if(data){
+        o.prev().val(i);
+        //总和加
+        var total=parseInt(o.parents(".cart-t-num").prev().find("span").html())*i;
+        // alert(total);
+        o.parents(".cart-t-num").next().find("span").html(total);
+        getAllPrice();
+      }
+    })
+    
+  })
+
+  //手动输入商品数量
+  $(".itxt").blur(function(){
+    // alert(111);
+    var o=$(this);
+    var a=$(this).val();
+    var id=$(this).parents("tr").prev().val();
+    // alert(id);
+    $.get("/homecarts/addnum",{num:a,id:id},function(data){
+      if(data){
+        o.val(a);
+        var total=parseInt(o.parents(".cart-t-num").prev().find("span").html())*a;
+        // alert(total);
+        o.parents(".cart-t-num").next().find("span").html(total);
+        getAllPrice();
+      }
+    });
+  });
+
+
+  //删除商品
+  $(".delete").click(function(){
+    var o=$(this);
+    var id=$(this).parents("tr").prev().val();
+    $.get("/homecarts/delete",{id:id},function(data){
+      if(data){
+        alert("删除成功");
+        o.parents("tr").remove();
+      }else{
+        alert("删除失败");
+      }
+    })
+    
+  });
+
+  //总价
+  
+  function getAllPrice(){
+    var total=0;
+    var num=0;
+    $("input[type='checkbox'][name='checked_goods']").each(function(){
+      if(this.checked==true){
+        total += parseInt($(this).parents("tr").find(".cart-t-total").find("span").html());
+        num+=parseInt($(this).parents("tr").find(".cart-t-num").find(".itxt").val());
+        // total+=parseInt($("#"+id).text());
+        // total+=2;
+      }
+    });
+    // alert(total);
+    $(".ub").find("em").html(num);
+    $("#total").html(total);
+  }
+
+ </script>
+</html>
+{/block}

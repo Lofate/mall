@@ -1,0 +1,37 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  	<meta charset="UTF-8">
+  	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=afFHRTWpD4nNAeTGHEVScFoChgcf6gT1"></script>
+  	<script src="static/bs/jquery.min.js"></script>
+  	<title>前台首页</title>
+  </head>
+  <body>
+  	<div id="allmap"></div>
+  	<!-- 1 -->
+  </body>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,12);
+
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			// alert('您的位置：'+r.point.lng+','+r.point.lat);
+			window.location.href="/index/jwd/a/"+r.point.lng+"/b/"+r.point.lat+"";
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+
+</script>
+  </html>
+    <!-- 定位当前经纬度 -->
+
+

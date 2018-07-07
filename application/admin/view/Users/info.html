@@ -1,0 +1,67 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    用户详情
+{/block}
+
+{block name="admin"}
+<div class="page-heading">
+            <h2>
+                用户管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/cates/index">用户 </a>
+                </li>
+                <li class="active"> 详情 </li>
+            </ul>
+</div>
+  <div class="panel-body">
+   <form class="form-horizontal adminex-form" method="post" action="/users/infochange" enctype="multipart/form-data"> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">用户真实姓名</label> 
+     <div class="col-sm-10"> 
+      <input type="text" class="form-control username" style="width:500px;" name="realname" value="{$data['realname']}" /> 
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">照片</label> 
+     <div class="col-sm-10"> <img src="{$data['photo']}" alt="" width="100px" height="100px">
+      <input type="file" name="pic"  /> 
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">性别</label> 
+     <div class="col-sm-10"> 
+      <input type="radio" name="sex"  value="0" {$data['sex']==0?'checked':''}/> 女
+      <input type="radio" name="sex"  value="1" {$data['sex']==1?'checked':''}/> 男
+     </div> 
+    </div>
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">年龄</label> 
+     <div class="col-sm-10"> 
+      <input type="text" class="form-control" style="width:500px;" name="age"  value="{$data['age']}"/> 
+     </div> 
+    </div>
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">个人简介</label> 
+     <div class="col-sm-10"> 
+      <textarea name="introduction" id="" cols="40" rows="5">{$data['introduction']}</textarea>
+     </div> 
+    </div>
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label"></label> 
+     <div class="col-sm-10"> 
+      <input type="submit" value="修改" class="btn btn-success">
+      <input type="reset" value="重置" class="btn btn-info">
+     </div> 
+    </div> 
+    <input type="hidden" name="uid" value="{$uid}">
+   </form>
+   </div> 
+
+   <br>
+
+
+  
+
+{/block}

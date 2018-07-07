@@ -1,0 +1,44 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台订单详情列表
+{/block}
+
+{block name="admin"}
+<div style="margin-left:30px;margin-right:30px">
+<div class="page-heading">
+            <h2>
+                订单详情
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href=""> 订单管理 </a>
+                </li>
+                <li class="active"> 订单列表 </li>
+                <li class="active"> 订单详情 </li>
+            </ul>
+</div>
+<table class="display table table-bordered table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >ID</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >订单id</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >商品id</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >数量</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-sort="descending" aria-label="CSS grade: activate to sort column ascending" style="width: 170px;">操作</th></tr>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  {foreach name='data' item='row'} 
+    <tr class="gradeX odd">
+      <td class=" ">{$row['id']}</td>
+      <td class=" ">{$row['order_id']}</td>
+      <td class=" ">{$row['goods_id']}</td>
+      <td class=" ">{$row['num']}</td>
+     
+      <td class=""> <a href="" class="btn btn-danger">删除</a>|<a href="/" class="btn btn-info">修改</a></td>
+    </tr>
+    {/foreach}
+  </tbody>
+</table>
+  <div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div>
+  </div>
+{/block}

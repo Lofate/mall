@@ -1,0 +1,97 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台用户列表
+{/block}
+
+{block name="admin"}
+<style>
+  .cuo{
+    border:1px solid red;
+  }
+</style>
+<div class="page-heading">
+            <h2>
+                管理员管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/roles/index"> 角色 </a>
+                </li>
+                <li class="active"> 添加 </li>
+            </ul>
+</div>
+  <div class="panel-body">
+   <form class="form-horizontal adminex-form" method="post" action="/roles/update"> 
+   <input type="hidden" value="{$list[0]['id']}" name="id">
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">角色名称</label> 
+     <div class="col-sm-10"> 
+      <input type="text" name="name" class="form-control" placeholder="" value="{$list[0]['name']}" style="width:500px;"/><span></span>
+     </div> 
+    </div> 
+     <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label"></label> 
+     <div class="col-sm-10"> 
+      <input type="submit" value="修改" class="btn btn-success" id="submit">
+      <input type="reset" value="重置" class="btn btn-info">
+     </div> 
+    </div> 
+   </form> 
+  </div>
+   <br>
+   <script>
+   //name为0时按钮点击无效
+   var name=0;
+     $('input[name=name]').blur(function(){
+      //判断input内容是否为空
+      if($(this).val()==''){
+        name=0;
+        //input内容为空，添加错误样式和文字
+        $(this).next().html('名称不能为空').attr('style','color:red');
+        $(this).addClass('cuo');
+      }else{
+        //input有内容，取出错误样式和文字
+        $(this).removeClass('cuo');
+        $(this).next().html('');
+        var val=$(this).val();
+        var id=$('input[name=id]').val();
+        //判断内容是否和数据库重复
+        th=$(this);
+        $.ajax({
+            dataType : 'json',
+            url : '/roles/ajax',
+            async : true,
+            data : {
+                "val" : val,
+                "id":id
+            },
+            success : function(data){
+              // alert(data);
+                if(data==1){
+                  //数据库已经存在则添加错误样式
+                  th.addClass('cuo');
+                  th.next().html('角色名称已存在。').attr('style','color:red');
+                  name=0;
+                }else{
+                  name=1;
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status + "," + textStatus);
+            }
+        });
+      }
+     })
+     //判断按钮是否点击有效
+    $('form').submit(function(){
+      if(name==1){
+        return true;
+        // alert(1)
+      }else{
+        return false;
+        // alert(0);
+      }
+    })
+   </script>
+  
+{/block}

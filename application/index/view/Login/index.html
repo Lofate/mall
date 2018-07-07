@@ -1,0 +1,116 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    前台登录
+{/block}
+
+{block name="index"}
+<!DOCTYPE html>
+<html><head>
+    <link rel="shortcut icon" href="https://login.yiguo.com/Content/img/yiguo.ico">
+    <script type="text/javascript" id="veConnect" async="" crossorigin="anonymous" src="/static/login/capture-apps-4.js"></script><script type="text/javascript" async="" src="/static/login/collect.js"></script><script type="text/javascript" async="" src="/static/login/dc.js"></script><script type="text/javascript" async="" src="/static/login/vds.js"></script><script type="text/javascript" async="" src="/static/login/adw.js"></script><script src="/static/login/tm.js" async=""></script><script src="/static/login/jquery.js"></script>
+
+    <link href="/static/login/public.css" rel="stylesheet">
+
+    
+<link href="/static/login/login.css" rel="stylesheet" type="text/css">
+
+    <link href="/static/login/themes.css" rel="stylesheet">
+
+    <script src="/static/login/tab.js"></script>
+
+    <script src="/static/login/FormValidate.js"></script>
+
+    <script src="/static/login/topdsp.js"></script><script type="text/javascript" async="" src="/static/login/tag.js"></script>
+</head>
+
+
+<body id="body">
+    <!-- 顶部工具栏开始 -->
+    <div class="w">
+
+        <!-- 顶部工具栏结束 -->
+        
+
+<div class="popout protocol-poput" id="p-code">
+    <div class="popout-code">
+        <a href="javascript:;" class="close"></a>
+        <p>亲，第三方登录目前仅支持移动端，请拿起手机扫描以下二维码下载易果生鲜APP或关注微信服务号吧！</p>
+        <div class="pcode"><img src="/static/login/code.jpg"></div>
+    </div>
+    <div class="popout-bg">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#Pwd').keydown(function (e) {
+
+            if (e.keyCode == 13) {
+                document.getElementById("btnLogin").click(); //调用登录按钮的登录事件
+            }
+        });
+
+        $("#btnLogin").click(function () {
+            if (Form.Validate($("#UserName").val())) {
+                $("#msg-wrap").addClass("msg-wrap").children("div").addClass("msg-error").html(Form.VC);
+                return false;
+            }
+
+            $('form').submit();
+        });
+
+        $(".gray").click(function () {
+            $("#imgcode").attr("src", "/verifycode" + "?_t=" + new Date().getTime());
+        });
+        
+        $("#p-code-btn").on("click", ".qq,.sina", function () {
+            $("#p-code").show();
+        })
+        $("#p-code").on("click", ".close", function () {
+            $("#p-code").hide();
+        })
+
+    });
+
+</script>
+
+<form action="/login/login" method="post">    <div class="login">
+        <div class="wrap clearfix">
+            <div class="fl"><a href="http://www.yiguo.com/activity/sale/5620" target="_blank"><img src="/static/login/9288707397067429.jpg" width="666" height="418"></a></div>
+            <div class="fr">
+                <p class="right"></p>
+                <div class="login-main">
+                    <p><strong>欢迎登录</strong><span>还没有账号？<a class="green" href="/register/index">立即注册</a></span></p>
+
+                        <div id="msg-wrap"><div> </div></div>
+
+                    <p>
+                        用户名<span class=""></span><input class="input input-phone" id="UserName" name="username" placeholder="" type="text">
+                    </p>
+                    <p>密码<span class="input-key-icon">&nbsp;</span><input class="input input-key" id="Pwd" name="password" placeholder="" type="password"></p>
+                    <p><input class="input input-key" id="VerifyCode" name="captcha" placeholder="验证码" style="width:100px" type="text"><div><img id="verify_img" src="{:captcha_src()}" alt="" onclick="refresh()" /></div><a href="javascript:refresh()">换一张</a></p>
+                    <p><label><a href="">忘记登录密码？</a></label></p>
+                    <p><a id="btnLogin" href="javascript:void(0)" class="btn-green-l">登 &nbsp; 录</a></p>
+                    <div id="p-code-btn"><a href="javascript:;" class="qq"><i></i></a><a href="javascript:;" class="sina"><i></i></a><a href="https://login.yiguo.com/SQ" class="ay"><i></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+    <script src="/static/login/o_code.js"></script>
+
+
+
+<iframe style="width: 1px; border: 0px none; position: absolute; left: -100px; top: -100px; height: 1px;" src="https://et.emarbox.com/_adw.gif?adwu=15214626715194706786&amp;adws=152146267151947067864&amp;adwft=1521462671&amp;adwpt=1521551747&amp;adwv=4&amp;adweu=&amp;adwsw=1440&amp;adwsh=900&amp;adwmc=8497085969&amp;adwlh=https%3A%2F%2Flogin.yiguo.com%2Fub%2Flogin.aspx%3Furl%3Dhttp%3A%2F%2Fyiguo.com%2F&amp;adwr=http%3A%2F%2Fyiguo.com%2F&amp;adwsc=24-bit&amp;adwl=zh-CN&amp;adwj=0&amp;adwp=https%3A&amp;adwfv=0&amp;adwac=0&amp;adwa=yn3k2&amp;adwe=true&amp;adwcr=http%3A%2F%2Fyiguo.com%2F&amp;encoding=UTF-8&amp;drid=&amp;pgi=&amp;adwt=%E6%98%93%E6%9E%9C%E7%BD%91&amp;kwd=&amp;dst=&amp;ver=1.1" id="emar_box_pv"></iframe><script type="text/javascript" id="">var _smq = _smq || []; _smq.push(['_setAccount', '62b87db', new Date()]); _smq.push(['pageview']); (function() { var sm = document.createElement('script'); sm.type = 'text/javascript'; sm.async = true; sm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'site.cdnmaster.cn/sitemaster/collect.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sm, s); })(); </script><iframe id="veUtilsIframe" style="visibility: hidden; display: none; border: medium none;" width="0" height="0"></iframe><iframe id="1521612452108" tabindex="-1" src="/static/login/iframeStorage.htm" style="display: none;"></iframe>
+
+<script>
+    function refresh() {
+        var ts = Date.parse(new Date())/1000;
+        $('#verify_img').attr("src", "/captcha?id="+ts);
+        $('.input-key').focus();
+    }
+</script>
+</body></html>
+{/block}

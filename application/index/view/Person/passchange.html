@@ -1,0 +1,80 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}修改密码{/block}
+{block name="index"}
+<!-- <link href="/static/login/public.css" rel="stylesheet"> -->
+<link href="/static/login/login.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<center>
+<div class="login">
+        <div class="wrap clearfix">
+                <div class="login-main">
+                    <p>新密码<input class="form-control check" name="password" placeholder="6~16位" type="password" maxlength="16"></p>
+                    <p>重复密码<input class="form-control check" name="repassword" placeholder="" type="password" maxlength="16"></p>
+                    <p><a id="cp2" href="javascript:void(0)" class="btn btn-success">修改</a></p>
+
+                </div>
+            </div>
+    </div>
+</center>
+<script>
+	var pa,repa = false;
+	//设置ajax为同步
+	$.ajaxSettings.async = false;
+	//检测密码
+    $('input[name="password"]').blur(function(){
+        var password = $(this).val();
+        o = $(this);
+        if(password==''){
+            o.css('border-color','red');
+            pa = false;
+            return;
+        }
+        $.get('/person/checkpass',{password:password},function(data){
+            if(data==0){
+                o.css('border-color','green');
+                pa = true;
+            }else{
+                o.css('border-color','red');
+                pa = false;
+            }
+        })
+    });
+    //检测重复密码
+    $('input[name="repassword"]').blur(function(){
+        var repassword = $(this).val();
+        var password = $('input[name="password"]').val();
+        o = $(this);
+        if(repassword==''){
+            o.css('border-color','red');
+            repa = false;
+            return;
+        }
+        $.get('/person/checkrepass',{password:password,repassword:repassword},function(data){
+            if(data==0){
+                o.css('border-color','green');
+                repa = true;
+            }else{
+                o.css('border-color','red');
+                repa = false;
+            }
+        })
+    });
+    //提交检测
+    $('#cp2').click(function(){
+        $('input.check').trigger('blur');
+        if(pa==false||repa==false){
+            return false;
+        }else{
+            var password = $('input[name="password"]').val();
+            $.get('/person/passchange',{password:password},function(data){
+                if(data==1){
+                    alert('修改成功,请重新登录');
+                    $(location).attr('href','/login/index');
+                }else{
+                    alert('修改失败');
+                }
+            })
+        }
+    });
+</script>
+{/block}

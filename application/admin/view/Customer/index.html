@@ -1,0 +1,243 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}客服{/block}
+{block name="admin"}
+
+<div class="page-heading">
+            <h2>
+                客服
+            </h2>
+</div>
+
+  <style type="text/css">
+  .left{
+    height:500px;
+  }
+  .up{
+    border:1px solid #ccc;
+    height:380px;
+    padding:10px;
+    overflow-y:scroll;
+  }
+  .container{
+    margin-top:50px;
+    width:80%;
+  }
+  #bnk{
+    display:none;
+  }
+  </style>
+   <div class="container">
+   <div class="userlist">
+     {foreach $uname as $row}
+      <span class="btn btn-info uname" name="{$row['uname']}">{$row['uname']}</span>
+     {/foreach}
+   </div>
+    <div class="left col-md-9">
+      <div class="up">
+
+      </div>
+
+      <div class="down">
+        <div class="input col-md-10">
+          <textarea class="form-control"></textarea>
+        </div>
+        <div class="btn">
+          <button class="btn btn-success send">发送</button>
+        </div>
+      </div>
+      </div>
+   </div>
+   <div id="bnk">
+        <div class="media me"> 
+           <div class="media-body text-right"> 
+            <h4 class="media-heading ">ME</h4>
+            <a href="#"> <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="/static/admins/adminindex/images/avatar-mini.jpg" data-holder-rendered="true" style="width: 64px; height: 64px;float:right" /> </a> 
+            <p>发送的消息</p> 
+           </div> 
+           <div class="media-right"> 
+           </div> 
+      </div>
+
+      <div class="media other">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object otherimg" data-src="holder.js/64x64" alt="64x64" src="/static/admins/adminindex/images/avatar-mini.jpg" data-holder-rendered="true" style="width: 64px; height: 64px;float:left">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">other</h4>
+            <p>other message</p>
+          </div>
+      </div>
+   </div>
+  
+<script>
+
+    var uname='';
+    //单击事件
+    $(document).on("click",".uname",function(){
+      // alert(1);
+      // 得到要发送的数据
+      $(".up").html("");
+      //得到要发送都的用户
+      uname=$(this).html();
+      //将提示样式去除
+      $(this).removeClass('btn-danger').addClass('btn-info');
+      //ajax获取之前的聊天记录
+      $.ajax({
+        url:'/customer/ajaxxxx',
+        data:{
+          uname:uname
+        },
+        success:function(data){
+          for(var i=0;i<data.length;i++){
+            //判断是客服发的信息还是用户发的信息
+              if(data[i].usercon){
+                var v=data[i].usercon;
+                //克隆div
+                var item=$("#bnk .other").clone();
+                //给p赋值
+                item.find("p").html(v);
+                item.find("h4").html(data[i].uname);
+                //把克隆的div内部追加到类名是up的div里
+                $(".up").append(item);
+              }else if(data[i].admincon){
+                var v=data[i].admincon
+                //克隆div
+                var item=$("#bnk .me").clone();
+                //给p赋值
+                item.find("p").html(v);
+                //把克隆的div内部追加到类名是up的div里
+                $(".up").append(item);
+              }
+            }
+            //始终保持滚轮在最下方
+            $('.up').scrollTop($('.up')[0].scrollHeight);
+        }
+      })
+    })
+
+    //按钮绑定单击事件
+    $(".send").click(function(){
+      //获取发送的内容
+      var v=$("textarea").val();
+      // alert(v);
+      //判断
+      if(v==""){
+        alert("发射消息不能为空");
+      }else{
+
+        //克隆div
+        var item=$("#bnk .me").clone();
+        //给p赋值
+        item.find("p").html(v);
+        //把克隆的div内部追加到类名是up的div里
+        $(".up").append(item);
+        $.ajax({
+          url:'/customer/ajaxxx',
+          data:{
+            val:v,
+            uname:uname
+          }
+        })
+        //清空文本域
+        $("textarea").val("");
+        $('.up').scrollTop($('.up')[0].scrollHeight);
+      }
+
+    })
+
+    //操作回车发送消息
+    $(window).keydown(function(e){
+      // alert('sss');
+      //获取键盘值
+      // alert(e.keyCode);
+      if(e.keyCode==13){
+        //触发发送的按钮
+        $(".send").trigger("click");
+      }
+    });
+    //鼠标禁止换行
+    $("textarea").keydown(function(e){
+      if(e.keyCode==13){
+        $(".send").trigger("click");
+        return false;
+      }
+    });
+    //不断检测是否有新消息
+    setInterval(function(){
+      //检测是否有新消息
+      $.ajax({
+        url:'/customer/ajaxxxxx',
+        dataType: "json",
+        success:function(data){
+            for(var i=0;i<data.length;i++){
+              user=data[i].uname;
+              // alert(1);
+              // alert($('.uname[name='+user+']').html());
+              // 判断是否是第一次发送消息
+              // 如果是新加一个提示聊天框，如果不是提示框添加提示效果
+              if($('.uname[name='+user+']').html()==undefined){
+                var item="<span class='btn btn-danger uname' name='"+user+"'>"+user+"</span>";
+                $(".userlist").append(item);
+              }else{
+                $('.uname[name='+user+']').removeClass('btn-info').addClass('btn-danger');
+                // alert(1);
+              }
+            }
+          
+        }
+      })
+      //不断检测当前聊天用户所发的内容
+      $.ajax({
+        url:'/customer/ajax',
+        dataType: "json",
+        data:{
+          uname:uname
+        },
+        success:function(data){
+          // console.log(data.length);
+          for(var i=0;i<data.length;i++){
+            if(data[i].usercon){
+              var v=data[i].usercon;
+              //克隆div
+              var item=$("#bnk .other").clone();
+              //给p赋值
+              item.find("p").html(v);
+              item.find("h4").html(data[i].uname);
+              //把克隆的div内部追加到类名是up的div里
+              $(".up").append(item);
+              $.ajax({
+                url:'/customer/ajaxx',
+                dataType: "json",
+                data:{
+                  id:data[i].id
+                }
+              })
+              $('.up').scrollTop($('.up')[0].scrollHeight);
+            }else if(data[i].admincon){
+              var v=data[i].admincon
+              //克隆div
+              var item=$("#bnk .me").clone();
+              //给p赋值
+              item.find("p").html(v);
+              //把克隆的div内部追加到类名是up的div里
+              $(".up").append(item);
+              $.ajax({
+                url:'/customer/ajaxx',
+                dataType: "json",
+                data:{
+                  id:data[i].id
+                }
+              })
+              $('.up').scrollTop($('.up')[0].scrollHeight);
+            }
+          }
+        }
+      })
+      
+    },1000)
+
+</script>
+
+{/block}

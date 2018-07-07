@@ -1,0 +1,223 @@
+﻿{extend name="IndexPublic:public"/}
+{block name="title"}
+    公告
+{/block}
+
+{block name="index"}
+<html>
+ <head>
+ </head>
+ <body>
+  <div class="header-nav"> 
+   <div class="wrap"> 
+    
+    <div class="nav-items"> 
+     <ul id="homenav"> 
+     {foreach name="datass" item="rows"}
+      <li><a href="/notices/index/id/{$rows['id']}" target="_blank">{$rows['name']}</a></li> 
+     {/foreach}
+     </ul> 
+    </div> 
+   </div> 
+  </div>
+ </body>
+</html>
+<html lang="zxx">
+
+<!-- <head>
+  <title>Home</title>
+  <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="keywords" content=""
+  />
+  <script>
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <!--// Meta tag Keywords -->
+  <!-- css files -->
+  <link rel="stylesheet" href="/static/aaa/css/bootstrap.css" type="text/css" media="all">
+  <!-- Bootstrap-Core-CSS -->
+  <link rel="stylesheet" href="/static/aaa/css/font-awesome.css" type="text/css" media="all">
+  <!-- Font-Awesome-Icons-CSS -->
+  <link rel="stylesheet" href="/static/aaa/css/owl.carousel.css" type="text/css" media="all" />
+  <!-- Owl-Carousel-CSS -->
+  <!-- <link rel="stylesheet" href="/static/aaa/css/style.css" type="text/css" media="all" /> -->
+  <link rel="stylesheet" href="/static/bs/css/style.css" type="text/css" media="all" />
+  <!-- Style-CSS -->
+  <!-- //css files -->
+  <!-- web fonts -->
+  <link href="http://fonts.googleapis.com/css?family=Molle:400i&amp;subset=latin-ext" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext"
+      rel="stylesheet">
+  <!-- //web fonts -->
+<!--</head> -->
+
+<!-- <body>
+
+  <!-- //sticky navigation -->
+
+  <!-- welcome -->
+  <div class="about" id="about">
+    <div class="container">
+      <!-- <h1 style="text-align: center">Welcome</h3> -->
+      <br>
+       {foreach name="datas" item="row"}
+      <div class="about-top w3ls-agile">
+        <div class="col-md-6 red">
+          <img width="360px" height="270px" src="/gonggao/thumb/{$row['pic']}"  alt="">
+        </div>
+        <div class="col-md-6 come">
+          <div class="about-wel">
+            <h1>{$row['name']}
+            </h1>
+            
+            <br>
+            <br>
+            <p>{$row['title']}</p>
+       
+          </div>
+          <!-- <div class="button-styles">
+            <a href="#" data-toggle="modal" data-target="#myModal2">More Info</a>
+            <a href="#contact" class="button2-w3l scroll">Contact Us</a>
+          </div> -->
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+      {/foreach}
+    </div>
+  </div>
+  <!-- //welcome -->
+
+
+
+
+
+  <!-- js -->
+  <script src="/static/aaa/js/jquery-2.2.3.min.js"></script>
+  <script src="/static/aaa/js/bootstrap.js"></script>
+  <!-- Necessary-JavaScript-File-For-Bootstrap -->
+  <!-- //js -->
+
+  <!-- Banner Slider -->
+  <script src="/static/aaa/js/responsiveslides.min.js"></script>
+  <script>
+    $(function () {
+      $("#slider").responsiveSlides({
+        auto: true,
+        pager: true,
+        nav: true,
+        speed: 1000,
+        namespace: "callbacks",
+        before: function () {
+          $('.events').append("<li>before event fired.</li>");
+        },
+        after: function () {
+          $('.events').append("<li>after event fired.</li>");
+        }
+      });
+    });
+  </script>
+  <!-- //Banner Slider -->
+
+  <!-- Sticky Navigation Script -->
+  <script>
+    $(window).scroll(function () {
+      if ($(window).scrollTop() >= 795) {
+        $('nav').addClass('fixed-header');
+      } else {
+        $('nav').removeClass('fixed-header');
+      }
+    });
+
+    /* scrollTop() >= 795
+       Should be equal the the height of the header
+     */
+  </script>
+  <!-- //Sticky Navigation Script -->
+
+  <!-- simple-lightbox -->
+  <script src="/static/aaa/js/simple-lightbox.min.js"></script>
+  <script>
+    $(function () {
+      var gallery = $('.agileinfo-gallery-row a').simpleLightbox({
+        navText: ['&lsaquo;', '&rsaquo;']
+      });
+    });
+  </script>
+  <link href='/static/aaa/css/simplelightbox.min.css' rel='stylesheet' type='text/css'>
+  <!-- Light-box css -->
+  <!-- //simple-lightbox -->
+
+  <!-- smoothscroll -->
+  <script src="/static/aaa/js/SmoothScroll.min.js"></script>
+  <!-- //smoothscroll -->
+
+  <!-- start-smooth-scrolling -->
+  <script src="/static/aaa/js/move-top.js"></script>
+  <script src="/static/aaa/js/easing.js"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      $(".scroll").click(function (event) {
+        event.preventDefault();
+
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top
+        }, 1000);
+      });
+    });
+  </script>
+  <!-- //end-smooth-scrolling -->
+
+  <!-- smooth-scrolling-of-move-up -->
+  <script>
+    $(document).ready(function () {
+      /*
+      var defaults = {
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear' 
+      };
+      */
+      $().UItoTop({
+        easingType: 'easeOutQuart'
+      });
+
+    });
+  </script>
+
+  <script src="/static/aaa/js/owl.carousel.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#owl-demo").owlCarousel({
+        items: 3,
+        lazyLoad: true,
+        autoPlay: true,
+        pagination: true,
+      });
+    });
+  </script>
+<!--</body> -->
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+   
+{/block}

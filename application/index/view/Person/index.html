@@ -1,0 +1,143 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <div class="title">个人资料</div>
+    <div>
+        <div class="sub-tit">当前用户信息</div>
+            <div class="control-group">
+                <div class="control-label">用户名</div>
+                <div class="controls"><span>{$data['username']}</span></div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">手机</div>
+                <div class="controls"><span id="op">{$data['phone']}
+                </span><a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn-gn bindEmail"  data-toggle="modal" data-target="#myModal">手机改绑</a>
+                    <!-- 模态框 -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">手机改绑</h4>
+                          </div>
+                          <div class="modal-body">
+                          <label class="control-label">请输入新手机号</label>
+                          <input type="text" name="phone" class="form-control" value="">
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" id="phonesubmit" class="btn btn-success" data-dismiss="modal">修改绑定</button>
+                            <button type="button" info="" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">邮箱</div>
+                <div class="controls"><span id="om">{$data['email']}
+                </span><a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn-gn bindEmail"  data-toggle="modal" data-target="#myModal1">邮箱改绑</a>
+                    <!-- 模态框 -->
+                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">邮箱改绑</h4>
+                          </div>
+                          <div class="modal-body">
+                          <label class="control-label">请输入新邮箱</label>
+                          <input type="text" name="email" class="form-control" value="">
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" id="mailsubmit" class="btn btn-success" data-dismiss="modal">修改绑定</button>
+                            <button type="button" info="" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+</body>
+<script>
+    $('#phonesubmit').click(function(){
+        var phone = $('input[name="phone"]').val();
+        // alert(phone);
+        $.post('/person/phonechange',{phone:phone},function(data){
+            // alert(data);
+            if(data==1){
+                alert('修改成功');
+                $('#op').html(phone);
+            }else{
+                alert('修改失败');
+            }
+        });
+    });
+    $('#mailsubmit').click(function(){
+        var email = $('input[name="email"]').val();
+        // alert(email);
+        $.post('/person/mailchange',{email:email},function(data){
+            // alert(data);
+            if(data==1){
+                alert('修改成功');
+                $('#om').html(email);
+            }else{
+                alert('修改失败');
+            }
+        });
+    });
+</script>
+        
+{/block}

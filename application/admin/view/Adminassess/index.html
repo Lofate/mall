@@ -1,0 +1,91 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台评价列表
+{/block}
+
+{block name="admin"}
+<style type="text/css">
+  .table th,.table td { 
+    text-align: center;
+    vertical-align: middle!important;
+  }
+</style>
+<div style="margin-left:30px;margin-right:30px">
+<div class="page-heading">
+            <h2>
+                评价管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href=""> 评价管理 </a>
+                </li>
+                <li class="active"> 评价列表 </li>
+            </ul>
+</div>
+<table class="display table table-bordered table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >ID</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >订单id</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >商品id</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >商品评分</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >服务评分</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >配送评分</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >总体评价</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >状态</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-sort="descending" aria-label="CSS grade: activate to sort column ascending" style="width: 170px;">操作</th></tr>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  {foreach name="data" item="row"}
+    <tr class="gradeX odd">
+      <td class="">{$row['id']}</td>
+      <td class="">{$row['order_id']}</td>
+      <td class="">{$row['good_id']}</td>
+      <td class="">{$row['good_score']}</td>
+      <td class="">{$row['service_score']}</td>
+      <td class="">{$row['time_score']}</td>    
+      <td class="">{$row['content']}</td>    
+      <td class="center hidden-phone "  >
+      {if condition="$data[$key]['status'] eq 0"}<p  class='btn btn-success show1' >隐藏</p>{/if}
+      {if condition="$data[$key]['status'] eq 1"}<p  class='btn btn-success show1' >显示</p>{/if}
+      </td>   
+      <td class=""><a href="/assess/delete/id/{$row['id']}" class="btn btn-danger">回收</a></td>
+    </tr>
+  {/foreach}
+  </tbody>
+</table>
+  <div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="prev disabled"><a href="#">← Previous</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#">Next → </a></li></ul></div>
+  </div>
+  <script>
+  $(".show1").click(function(){
+    id=$(this).parents("tr").find("td:first").html();
+    // alert(id);
+    o=$(this).html();
+    // alert(o);
+    td=$(this);
+    $.ajax({
+      'type':"get",
+      'url':'/Assess/Ajax',
+      'datatype':'json',
+      'async':'true',
+      'data':{id:id},
+      success:
+      function(data){
+        if(data==1){
+          if(o=="显示"){
+            td.html('隐藏');      
+          }else{
+            td.html('显示');
+          }
+        }
+        var_dump($data);
+        // console.log(data);
+      },
+      error:
+      function(){
+        alert('Ajax响应失败');
+      }
+    })
+  })
+</script>
+{/block}

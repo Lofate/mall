@@ -1,0 +1,47 @@
+﻿@charset "utf-8";
+
+/*头部搜索框功能*/
+#shelper {
+    width: 455px;
+    overflow: hidden;
+    position: absolute;    
+    left: 0;
+    top: 27px; width: 445px;
+    border: 1px solid #CCC;
+    background: #fff;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    z-index: 99999;
+}
+
+    #shelper li {
+        overflow: hidden;
+        padding: 3px 6px;
+        line-height: 22px;
+        cursor: pointer;
+        display: list-item;
+        text-align: -webkit-match-parent;
+        list-style: none;
+    }
+
+    #shelper .search-item {
+        float: left;
+        width: 390px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    #shelper .search-count {
+        overflow: hidden;
+        color: #aaa;
+        text-align: right;
+    }
+
+    #shelper .searchitemclose {
+        border-top: 1px solid #efefef;
+        text-align: right;
+    }

@@ -1,0 +1,180 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    在线客服
+{/block}
+
+{block name="index"}
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/admins/adminindex/css/bootstrap.min.css">
+<style type="text/css">
+  .left{
+    height:500px;
+  }
+  .up{
+    border:1px solid #ccc;
+    height:380px;
+    padding:10px;
+    overflow-y:scroll;
+  }
+  .container{
+    margin-top:50px;
+    width:80%;
+  }
+  #bnk{
+    display:none;
+  }
+  </style>
+   <div class="container">
+   <div class="userlist">
+     
+   </div>
+    <div class="left col-md-9">
+      <div class="up">
+
+      </div>
+
+      <div class="down">
+        <div class="input col-md-10">
+          <textarea class="form-control"></textarea>
+        </div>
+        <div class="btn">
+          <button class="btn btn-success send">发送</button>
+        </div>
+      </div>
+      </div>
+   </div>
+   <div id="bnk">
+        <div class="media me"> 
+           <div class="media-body text-right"> 
+            <h4 class="media-heading ">ME</h4>
+            <a href="#"> <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="{$photo}" data-holder-rendered="true" style="width: 64px; height: 64px;float:right" /> </a> 
+            <p>发送的消息</p> 
+           </div> 
+           <div class="media-right"> 
+           </div> 
+      </div>
+
+      <div class="media other">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="/static/admins/adminindex/images/avatar-mini.jpg" data-holder-rendered="true" style="width: 64px; height: 64px;float:left">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">客服</h4>
+            <p>other message</p>
+          </div>
+      </div>
+   </div>
+   <div style="display:none" class="username">{$Think.session.username}</div>
+<script>
+    var uname=$('.username').html();
+    $.ajax({
+        url:'/homecustomer/ajaxx',
+        data:{
+          uname:uname
+        },
+        success:function(data){
+          for(var i=0;i<data.length;i++){
+              if(data[i].usercon){
+                var v=data[i].usercon;
+                //克隆div
+                var item=$("#bnk .me").clone();
+                //给p赋值
+                item.find("p").html(v);
+                //把克隆的div内部追加到类名是up的div里
+                $(".up").append(item);
+              }else if(data[i].admincon){
+                var v=data[i].admincon
+                //克隆div
+                var item=$("#bnk .other").clone();
+                //给p赋值
+                item.find("p").html(v);
+                //把克隆的div内部追加到类名是up的div里
+                $(".up").append(item);
+              }
+            }
+            $('.up').scrollTop($('.up')[0].scrollHeight);
+        }
+      })
+     //按钮绑定单击事件
+    $(".send").click(function(){
+      //获取发送的内容
+      var v=$("textarea").val();
+      // alert(v);
+      //判断
+      if(v==""){
+        alert("发射消息不能为空");
+      }else{
+
+        //克隆div
+        var item=$("#bnk .me").clone();
+        //给p赋值
+        item.find("p").html(v);
+        //把克隆的div内部追加到类名是up的div里
+        $(".up").append(item);
+        $.ajax({
+          url:'/homecustomer/ajax',
+          data:{
+            val:v,
+          }
+        })
+        //清空文本域
+        $("textarea").val("");
+        $('.up').scrollTop($('.up')[0].scrollHeight);
+      }
+
+    })
+
+    //操作回车发送消息
+    $(window).keydown(function(e){
+      // alert('sss');
+      //获取键盘值
+      // alert(e.keyCode);
+      if(e.keyCode==13){
+        //触发发送的按钮
+        $(".send").trigger("click");
+      }
+    });
+    //鼠标禁止换行
+    $("textarea").keydown(function(e){
+      if(e.keyCode==13){
+        $(".send").trigger("click");
+        return false;
+      }
+    });
+    setInterval(function(){
+        $.ajax({
+        url:'/homecustomer/ajaxxx',
+        dataType: "json",
+        data:{
+          uname:uname
+        },
+        success:function(data){
+          // console.log(data.length);
+          for(var i=0;i<data.length;i++){
+            if(data[i].usercon){
+              
+            }else if(data[i].admincon){
+              var v=data[i].admincon
+              //克隆div
+              var item=$("#bnk .other").clone();
+              //给p赋值
+              item.find("p").html(v);
+              //把克隆的div内部追加到类名是up的div里
+              $(".up").append(item);
+              $.ajax({
+                url:'/homecustomer/ajaxxxx',
+                dataType: "json",
+                data:{
+                  id:data[i].id
+                }
+              })
+              $('.up').scrollTop($('.up')[0].scrollHeight);
+            }
+          }
+        }
+      })
+    },1000)
+</script>
+{/block}

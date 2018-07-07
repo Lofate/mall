@@ -1,0 +1,82 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <div class="title">我的评价</div><br>
+    <table class="table table-striped">
+    <thead>
+    <tr align="center"> 
+            <td>ID</td>
+            <td>商品信息</td>
+            <td>评价</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody>
+    {foreach name="arr2" item="row" key='key'}
+        <tr>
+            <td align="center" style="line-height: 100px">{$key}</td>
+            <td>
+            {foreach name="row" item="r" key='k'}
+            <li><img src="/uploads/{$r['pic']}" alt="" width="100px" height="100px">{$r['name']}</li>
+            {/foreach}
+            </td>
+            <td align="center" style="line-height: 100px">{$arr1[$key]['content']}</td>
+            <td style="line-height: 100px"><a href="/person/assessdel/order_id/{$arr1[$key]['order_id']}">删除</a></td>
+        </tr>
+        {/foreach}
+        
+    </tbody>
+</table>
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+</body>
+        
+{/block}

@@ -1,0 +1,149 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<style type="text/css">
+  tr th{
+    text-align: center;
+  }
+  
+</style>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <p>我的订单</p><hr>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>编号</th>
+            <th>商品信息</th>
+            <th>订单号</th>
+            <th>下单时间</th>
+            <th>订单状态</th>
+            <th>总金额</th>
+            <th>操作</th>
+        </tr>
+        {if condition="$data"}
+            {foreach $data as $val}
+                    <tr>
+                        <td style="vertical-align:middle;">{$i++}</td>
+                        <td>
+                          {foreach $val['shop'] as $row}
+                            <li><img src="{$row['pic']}" width="40px" width="40px"><span>{$row['name']}</span></li>
+                          {/foreach}
+                        </td>
+                        <td style="vertical-align:middle;color: red;">{$val['order_num']}</td>
+
+                        <td style="vertical-align:middle;">{$val['order_time']}</td>
+                        
+                        <td style="vertical-align:middle;">
+                          {switch name="$val['status']"}
+                            {case value="0"}<a href="{:url('/homepay/pay',['id'=>$val['id']])}" class="btn btn-success">去支付</a>{/case}
+                            {case value="1"}<a href="" class="btn btn-info" disabled>已取消</a>{/case}
+                            {case value="2"}<a href="" class="btn btn-info" disabled>已支付</a>{/case}
+                            {case value="3"}<a href="{:url('/person/confirmreceipt',['id'=>$val['id']])}" class="btn btn-warning">确认收货</a>{/case}
+                            {case value="4"}<a href="" class="btn btn-info" disabled>已完成</a>{/case}
+                            {case value="5"}<a href="" class="btn btn-waring">去评价</a>{/case}
+                            {case value="6"}<a href="" class="btn btn-danger">退款</a>{/case}
+                            {case value="7"}<a href="" class="btn btn-info" disabled>已退款</a>{/case}
+                            {case value="9"}<a href="" class="btn btn-info" disabled>已完成</a>{/case}
+                          {/switch}
+                        </td>
+                        <td style="vertical-align:middle;color: red;font-size: 18px;">￥{$val['total']}</td>
+                        <td style="vertical-align:middle;text-align: center;">
+                            {switch name="$val['status']"}
+                            {case value="0"}<a href="{:url('/person/cancelorder',['id'=>$val['id']])}" class="btn btn-danger">取消</a>{/case}
+                            {case value="1"}<a href="{:url('/person/delorder',['id'=>$val['id']])}" class="btn btn-danger">删除</a>{/case}
+                            {case value="2"}<a href="" class="btn btn-info" disabled>等待发货</a>{/case}
+                            {case value="3"}<a href="" class="btn btn-warning" disabled>等待收货</a>{/case}
+                            {case value="4"}<a href="{:url('/homepay/assess',['id'=>$val['id']])}" class="btn btn-info">可评价</a>{/case}
+                            {case value="9"}<a href="" class="btn btn-info" disabled>已评价</a>{/case}
+                            {case value="5"}<a href="{:url('/person/delorder',['id'=>$val['id']])}" class="btn btn-danger">删除</a>{/case}
+                            {case value="6"}<a href="" class="btn btn-danger" disabled>等待退款</a>{/case}
+                            {case value="7"}<a href="{:url('/person/delorder',['id'=>$val['id']])}" class="btn btn-danger">删除</a>{/case}
+                          {/switch}
+
+                          
+                            
+                        </td>
+                    </tr>
+            {/foreach}
+        {else}
+            <tr>
+                <td>暂无订单</td>
+            </tr>
+        {/if}
+    </table>
+    
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    var ue = UE.getEditor('editor');
+    $('.look').click(function(){
+        var id=$(this).attr('info');
+        // alert(id);
+        $.ajax({
+            type:'get',
+            url:'/person/mailajax',
+            async : true,
+            dataType : 'json',
+            data:{
+                'id':id
+            }
+        })
+        // $('#read').attr('style','color:green').html('已读');
+        a=$(this).parents('td').next().next().children('span').html('已读').attr('style','color:green');
+        // alert(a);
+    })
+</script>
+</body>
+        
+{/block}

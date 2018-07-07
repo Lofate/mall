@@ -1,0 +1,133 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    商品列表
+{/block}
+
+{block name="index"}
+<html>
+ <head>
+ 	<link rel="stylesheet" href="/static/lists/css1/customer.css">
+ 	<link rel="stylesheet" href="/static/lists/css1/goods_list.css">
+ 	<link rel="stylesheet" href="/static/lists/css1/pageguide.css">
+ 	<link rel="stylesheet" href="/static/lists/css1/product_detail.css">
+ 	<link rel="stylesheet" href="/static/lists/css1/public.css">
+ 	<link rel="stylesheet" href="/static/lists/css1/yiguo.css">
+ 	<script src="/static/lists/js/dc.js"></script>
+ 	<script src="/static/lists/js/floor-guide.js"></script>
+ 	<script src="/static/lists/js/global-v2.js"></script>
+ 	<script src="/static/lists/js/goods_list.js"></script>
+ 	<script src="/static/lists/js/handlebars-v3.0.1.js"></script>
+ 	<script src="/static/lists/js/jquery.cookie.js"></script>
+ 	<script src="/static/lists/js/jquery.js"></script>
+ 	<script src="/static/lists/js/jquery.superslide.js"></script>
+ 	<script src="/static/lists/js/pckit.js"></script>
+ 	<script src="/static/lists/js/search.js"></script>
+ 	<script src="/static/lists/js/sidebar.js"></script>
+ 	<script src="/static/lists/js/stats.js"></script>
+ 	<script src="/static/lists/js/utaste.js"></script>
+ 	<script src="/static/lists/js/util.js"></script>
+ 	<script src="/static/lists/js/ygm.dplus-0.5.js"></script>
+ </head>
+ <body>
+  <div class="header-nav"> 
+   <div class="wrap"> 
+    <!--商品分类 开始--> 
+    <div class="catalogs"> 
+     <div class="catalogs-title">
+      <a href="javascript:;">全部商品分类▼</a>
+     </div> 
+     <div class="catalogs-list" id="_categry" style="display: none;">{foreach name="data" item='row'}
+        <div class="item">        
+            <h3 class="t01_channelhome">
+              <a href="/homegoods/index/id/{$row['id']}"><i></i>{$row['name']}
+               <s>
+                &gt;
+               </s>
+              </a>
+            </h3> 
+           <div class="sub-item" style="display: none;"> 
+              <h4><a href="">{$row['name']}</a></h4> 
+                <div class="sub-list"> 
+                    {foreach name="row['shop']" item="rows"}
+                     <a href="/homegoods/index/id/{$rows['id']}" target="_blank">{$rows['name']}</a> 
+                    {/foreach}
+                </div>            
+           </div>          
+        </div> 
+        {/foreach}
+     </div> 
+    </div> 
+    <!--商品分类 结束--> 
+    <div class="nav-items"> 
+     <ul id="homenav"> 
+      <li><a href="" target="_blank">新品专区</a></li> 
+      <li><a href="" target="_blank">优质生活</a></li> 
+      <li><a href="" target="_blank">银行专区</a></li> 
+      <li><a href="" target="_blank">菜谱专栏</a></li> 
+     </ul> 
+    </div> 
+   </div> 
+  </div>
+  <div class="wrap"> 
+   <!--广告位--> 
+   <div class="page_ad clearfix"> 
+    <a class="big" href="" target="_blank"><img src="/static/lists/images/9288696047771900.jpg" width="1200" height="300" /></a> 
+    <a class="medium mr" href="" target="_blank"><img src="/static/lists/images/9288693685919894.jpg" width="405" height="180" /></a> 
+    <a class="medium mr" href="" target="_blank"><img src="/static/lists/images/9288698062578012.jpg" width="405" height="180" /></a> 
+    <a class="small mr" href="" target="_blank"><img src="/static/lists/images/9288698048979292.jpg" width="180" height="180" /></a> 
+    <a class="small" href="" target="_blank"><img src="/static/lists/images/9288698684678514.jpg" width="180" height="180" /></a> 
+   </div> 
+   <!--筛选--> 
+   <!--排序--> 
+   <div id="formCx" class="filter clearfix"> 
+    <div class="filter_sort"> 
+     <a class="on" href="javascript:;" _sort="0">默认排序</a> 
+     <a class="" href="javascript:;" _sort="1">销量<i class="dowm"></i></a> 
+     <a class="price" href="javascript:;" _sort="3">价格<i class="sort_down"></i></a> 
+     <a class="" href="javascript:;" _sort="5">评论<i class="dowm"></i></a> 
+    </div> 
+   </div> 
+   <div class="filter_space"></div> 
+   <!--商品列表--> 
+   <div class="goods_list clearfix" _category="0101_qiyiguo" _page="2" _end="false" _maxpage="2"> 
+    <ul>
+    {foreach name="arr" item="row"}
+      <input type="hidden" name="id" value="{$row['id']}">
+     <li class="product_item j_product" _type="0" _productid="1361389"> 
+      <div class="p_img clearfix"> 
+       <a href="/homegoodsinfo/index/id/{$row['id']}" target="_blank"> <img src="/uploads/{$row['pic']}" width="290" height="290" class="j_product_img" /> </a> 
+      </div> 
+      <div class="p_info clearfix">
+		
+       <div class="p_name">
+        <a href="/homegoodsinfo/index/id/{$row['id']}" target="_blank">{$row['name']}</a>
+       </div> 
+       <div class="p_price"> 
+        <span class="price"> <strong>&yen;{$row['price']}</strong> </span> 
+       </div>
+      </div>
+       
+      <div class="p-buy"> 
+       <a class="btn-buy" href="javascript:;">加入购物车</a> 
+      </div> </li>
+      {/foreach}  
+    </ul> 
+   </div> 
+  </div>
+ </body>
+
+ <script type="text/javascript">
+    $(".btn-buy").click(function(){
+      var id=$(this).parents("li").prev().val();
+      $.get("/homegoods/addcart",{id:id},function(data){
+        // alert(data);
+        if(data){
+          alert("添加成功");
+        }else{
+          alert("添加失败");
+        }
+      });
+    });
+ </script>
+</html>
+{/block}

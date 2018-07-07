@@ -1,0 +1,285 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    前台注册
+{/block}
+
+{block name="index"}
+<html><head>
+    <link rel="shortcut icon" href="https://login.yiguo.com/Content/img/yiguo.ico">
+    <script type="text/javascript" id="veConnect" async="" crossorigin="anonymous" src="/static/register/capture-apps-4.js"></script><script type="text/javascript" async="" src="/static/register/collect.js"></script><script type="text/javascript" async="" src="/static/register/dc.js"></script><script type="text/javascript" async="" src="/static/register/vds.js"></script><script type="text/javascript" async="" src="/static/register/adw.js"></script><script src="/static/register/tm.js" async=""></script><script src="/static/register/jquery.js"></script>
+
+    <link href="/static/register/public.css" rel="stylesheet">
+
+    
+    <link href="/static/register/themes.css" rel="stylesheet">
+
+    <script src="/static/register/tab.js"></script>
+
+    <script src="/static/register/FormValidate.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //手机易果
+            $('.mobile .mobile-tit').wrap('<div class="mobile-tit-w"></div>');
+            $('.mobile').hover(function () {
+                $(this).addClass('mobile-hover');
+            }, function () {
+                $(this).removeClass('mobile-hover');
+            });
+
+            Form.VC = '有无效字符，请重新输入'
+        });
+    </script>
+
+    <script src="/static/register/topdsp.js"></script><script type="text/javascript" async="" src="/static/register/tag.js"></script>
+</head>
+
+
+<body id="body">
+    <!-- 顶部工具栏开始 -->
+    <div class="w">
+
+        <!-- 顶部工具栏结束 -->
+        <script src="/static/register/Reg.js"></script>
+
+<link href="/static/register/register.css" rel="stylesheet">
+
+
+
+
+<form action="/register/register" method="post">    <div class="register">
+        <div class="wrap">
+            <div class="tabbable">
+                <!-- tabs -->
+                
+                <div class="tab-content">
+                    <div class="tab-pane clearfix active" id="tab1">
+                        <div class="fl">
+                            <p>
+                                <span class="field-name">用户名</span>
+                                <input id="username" placeholder="请输入您的用户名" class="input input-name" type="text" name="username">
+                                
+                                <span></span>
+                            </p>
+                            <p>
+                                <span class="field-name">邮箱</span>
+                                <input class="input input-email" id="email" name="email" placeholder="请输入您的邮箱" type="text">
+                                <span></span>
+                            </p>
+                            <p>
+                                <span class="field-name">手机号</span>
+                                <input class="input input-phone" id="phone" name="phone" placeholder="请输入您的手机号" type="text" maxlength="11">
+                                <span></span>
+                            </p>
+                            <p>
+                                <span class="field-name">手机验证码</span>
+                                <input class="input input-yzm" id="checkcode" name="checkcode" placeholder="手机验证码" type="text"><span></span>
+                                <a href="javascript:void(0)" class="btn-yzm" id="yzm">获取验证码</a>
+                                
+                            </p>
+                            <p>
+                                <span class="field-name">设置密码</span>
+                                <input class="input input-key" id="password" name="password" placeholder="建议6-16位" type="password" maxlength="16">
+                                <span></span>
+                            </p>
+                            <p>
+                                <span class="field-name">确认密码</span>
+                                <input class="input input-key" id="repassword" name="repassword" placeholder="再次输入密码" type="password" maxlength="16">
+                                <span></span>
+                            </p>
+
+                            <p><span class="field-name"></span><input type="submit" class="btn-green-l" id="PhoneReg" value="注册用户"></p>
+                        </div>
+                        <div class="fr">
+                            <div class="rimg"><img src="/static/register/register.png"></div>
+                           
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="right">                    
+                    我已经注册，现在就 <a class="orange" href="/login/index">登录</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<input id="HdAction" name="HdAction" value="" type="hidden"></form>
+
+
+
+
+<script src="/static/register/ygtracker1.js"></script>
+
+
+
+    <script src="/static/register/o_code.js"></script>
+
+
+
+
+
+<iframe style="width: 1px; border: 0px none; position: absolute; left: -100px; top: -100px; height: 1px;" src="https://et.emarbox.com/_adw.gif?adwu=15214626715194706786&amp;adws=152146267151947067865&amp;adwft=1521462671&amp;adwpt=1521612450&amp;adwv=5&amp;adweu=&amp;adwsw=1440&amp;adwsh=900&amp;adwmc=2653742168&amp;adwlh=https%3A%2F%2Flogin.yiguo.com%2FRegister&amp;adwr=https%3A%2F%2Flogin.yiguo.com%2Fub%2Flogin.aspx%3Furl%3Dhttp%3A%2F%2Fyiguo.com%2F&amp;adwsc=24-bit&amp;adwl=zh-CN&amp;adwj=0&amp;adwp=https%3A&amp;adwfv=0&amp;adwac=0&amp;adwa=yn3k2&amp;adwe=true&amp;adwcr=&amp;encoding=UTF-8&amp;drid=&amp;pgi=&amp;adwt=%E6%98%93%E6%9E%9C%E7%BD%91&amp;kwd=&amp;dst=&amp;ver=1.1" id="emar_box_pv"></iframe><script type="text/javascript" id="">var _smq = _smq || []; _smq.push(['_setAccount', '62b87db', new Date()]); _smq.push(['pageview']); (function() { var sm = document.createElement('script'); sm.type = 'text/javascript'; sm.async = true; sm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'site.cdnmaster.cn/sitemaster/collect.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sm, s); })(); </script><iframe id="veUtilsIframe" style="visibility: hidden; display: none; border: medium none;" width="0" height="0"></iframe><iframe id="1521618446572" tabindex="-1" src="/static/register/iframeStorage.htm" style="display: none;"></iframe></body>
+<script>
+    var un,ph,pm,yz,pa,repa = false;
+    //设置ajax为同步
+    $.ajaxSettings.async = false;
+    //验证码发送
+    $('#yzm').click(function(){
+        //获取手机号
+        var p = $('#phone').val();
+        o = $(this);
+        // alert(p);
+        $.post('/register/yzm',{p:p},function(data){
+            // alert(data);
+            if(data.code==000000){
+                m=60;
+                //执行倒计时
+                var time = setInterval(function(){
+                    m--;
+                    //把m赋值给button
+                    o.html(m+'秒后重新获取');
+                    //禁用当前按钮
+                    o.css("pointer-events","none");
+                    if(m==0){
+                        //清除定时器
+                        clearInterval(time);
+                        //重新给button赋值
+                        o.html('重新发送');
+                        //激活按钮
+                        o.css("pointer-events","auto");
+                    }
+                },1000);
+            }
+        },'json')
+    });
+    //检测用户名
+    $('#username').blur(function(){
+        var username = $(this).val();
+        o = $(this);
+        if(username==''){
+            o.next('span').html('用户名不能为空').css('color','red');
+            un = false;
+            return;
+        }
+        $.get('/register/checkname',{username:username},function(data){
+            if(data==0){
+                o.next('span').html('用户名可用').css('color','green');
+                un = true;
+            }else{
+                o.next('span').html('用户名已存在').css('color','red');
+                un = false;
+            }
+        })
+    });
+    //检测手机号
+    $('#phone').blur(function(){
+        var phone = $(this).val();
+        o = $(this);
+        if(phone==''){
+            o.next('span').html('手机号不能为空').css('color','red');
+            ph = false;
+            return;
+        }
+        $.get('/register/checkphone',{phone:phone},function(data){
+            if(data==0){
+                o.next('span').html('手机号可用').css('color','green');
+                ph = true;
+            }else{
+                o.next('span').html('手机号已绑定').css('color','red');
+                ph = false;
+            }
+        })
+    });
+    //检测邮箱
+    $('#email').blur(function(){
+        var email = $(this).val();
+        o = $(this);
+        if(email==''){
+            o.next('span').html('邮箱不能为空').css('color','red');
+            pm = false;
+            return;
+        }
+        $.get('/register/checkmail',{email:email},function(data){
+            if(data==0){
+                o.next('span').html('邮箱可用').css('color','green');
+                pm = true;
+            }else if(data==1){
+                o.next('span').html('邮箱已绑定').css('color','red');
+                pm = false;
+            }else{
+                o.next('span').html('邮箱格式错误').css('color','red');
+                pm = false;
+            }
+        })
+    });
+    //检测验证码
+    $('#checkcode').blur(function(){
+        var checkcode = $(this).val();
+        o = $(this);
+        if(checkcode==''){
+            o.next('span').html('<img src="/wrong.png" width="20px" height="20px">');
+            yz = false;
+            return;
+        }
+        $.get('/register/checkcode',{checkcode:checkcode},function(data){
+            if(data==0){
+                o.next('span').html('<img src="/right.png" width="20px" height="20px">');
+                yz = true;
+            }else{
+                o.next('span').html('<img src="/wrong.png" width="20px" height="20px">');
+                yz = false;
+            }
+        })
+    });
+    //检测密码
+    $('#password').blur(function(){
+        var password = $(this).val();
+        o = $(this);
+        if(password==''){
+            o.next('span').html('密码不能为空').css('color','red');
+            pa = false;
+            return;
+        }
+        $.get('/register/checkpass',{password:password},function(data){
+            if(data==0){
+                o.next('span').html('密码可用').css('color','green');
+                pa = true;
+            }else{
+                o.next('span').html('密码不可用').css('color','red');
+                pa = false;
+            }
+        })
+    });
+    //检测重复密码
+    $('#repassword').blur(function(){
+        var repassword = $(this).val();
+        var password = $('#password').val();
+        o = $(this);
+        if(repassword==''){
+            o.next('span').html('重复密码不能为空').css('color','red');
+            repa = false;
+            return;
+        }
+        $.get('/register/checkrepass',{password:password,repassword:repassword},function(data){
+            if(data==0){
+                o.next('span').html('重复密码正确').css('color','green');
+                repa = true;
+            }else{
+                o.next('span').html('重复密码错误').css('color','red');
+                repa = false;
+            }
+        })
+    });
+    //提交检测
+    $(':submit').click(function(){
+        $('input').trigger('blur');
+        if(un==false||ph==false||yz==false||pa==false||repa==false||pm==false){
+            return false;
+        }
+    })
+</script>
+</html>
+
+{/block}

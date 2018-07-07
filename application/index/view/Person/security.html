@@ -1,0 +1,341 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <div class="title">密码找回</div>
+        <div class="sub-tit">选择密码找回方式</div>
+
+            <div class="control-group">
+                <div class="control-label">通过手机找回</div>
+                <div class="controls">您的密保手机号为<span id="phone">{$data['phone']}
+                </span><a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn btn-warning"  data-toggle="modal" data-target="#myModal">找回密码</a>
+                    <!-- 模态框 -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">密码找回</h4>
+                          </div>
+                          <div class="modal-body">
+                          <label class="control-label">请输入验证码</label>
+                          <button id="yzm" class="btn btn-info">获取验证码</button>
+                          <input type="text" name="yzm" class="form-control check" value="">
+                          <label class="control-label">请输入新密码</label>
+                          <input type="password" name="password" class="form-control check" placeholder="请输入6~16位密码" maxlength="16">
+                          <label class="control-label">请重复新密码</label>
+                          <input type="password" name="repassword" class="form-control check" value="" maxlength="16">
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" id="cp1" class="btn btn-success" data-dismiss="modal">修改</button>
+                            <button type="button" info="" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">通过邮箱找回</div>
+                <div class="controls">您的密保邮箱地址为<span id="email">{$data['email']}
+                </span><a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn btn-warning" id="send">找回密码</a>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">通过密保找回</div>
+                {if condition="$protect"}
+                <div class="controls">您已绑定密保问题<a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn btn-warning"  data-toggle="modal" data-target="#myModal1">找回密码</a><a href="javascript:;" style="margin-left:10px;line-height:23px;padding:2px" class="btn btn-warning" id="prodel">解除密保</a>
+                    <!-- 模态框 -->
+                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">密码找回</h4>
+                          </div>
+                          <div class="modal-body">
+                          <label class="control-label">问题一</label>
+                          <select name="q1" class="form-control" disabled>
+                              <option value="0">{$protect['q1']}</option>
+                          </select>
+                          <input type="text" name="a1" class="form-control check" value="">
+                          <label class="control-label">问题二</label>
+                          <select name="q2" class="form-control" disabled>
+                              <option value="0">{$protect['q2']}</option>
+                          </select>
+                          <input type="text" name="a2" class="form-control check" value="">
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" id="p1" class="btn btn-success" data-dismiss="modal">提交</button>
+                            <button type="button" info="" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {else/}
+                <div class="controls">您未绑定密保问题<a href="javascript:" style="margin-left:10px;line-height:23px;padding:2px" class="btn btn-warning"  data-toggle="modal" data-target="#myModal2">立即绑定</a>
+                    <!-- 模态框 -->
+                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">密码找回</h4>
+                          </div>
+                          <div class="modal-body">
+                          <label class="control-label">问题一</label>
+                          <select name="q1" class="form-control">
+                              <option value="母亲的真实姓名是？">母亲的真实姓名是？</option>
+                              <option value="父亲的真实姓名是？">父亲的真实姓名是？</option>
+                              <option value="我的真实姓名是？">我的真实姓名是？</option>
+                          </select>
+                          <input type="text" name="a1" class="form-control check" value="">
+                          <label class="control-label">问题二</label>
+                          <select name="q2" class="form-control">
+                              <option value="我的生日是？">我的生日是？</option>
+                              <option value="我的爱好是？">我的爱好是？</option>
+                              <option value="我最好的朋友是？">我最好的朋友是？</option>
+                          </select>
+                          <input type="text" name="a2" class="form-control check" value="">
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" id="p2" class="btn btn-success" data-dismiss="modal">提交</button>
+                            <button type="button" info="" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {/if}
+                    
+                </div>
+            </div>
+
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+</body>
+<script>
+    //设置ajax为同步
+    $.ajaxSettings.async = false;
+    var yz,pa,repa = false;
+    //验证码发送
+    $('#yzm').click(function(){
+        //获取手机号
+        var p = $('#phone').html();
+        var o = $(this);
+        // alert(p);
+        $.post('/person/yzm',{p:p},function(data){
+            // alert(data);return;
+            if(data.code==000000){
+                m=60;
+                //执行倒计时
+                var time = setInterval(function(){
+                    m--;
+                    //把m赋值给button
+                    o.html(m+'秒后重新获取');
+                    //禁用当前按钮
+                    o.attr("disabled",true);
+                    if(m==0){
+                        //清除定时器
+                        clearInterval(time);
+                        //重新给button赋值
+                        o.html('重新发送');
+                        //激活按钮
+                        o.attr("disabled",false);
+                    }
+                },1000);
+            }
+        },'json')
+    });
+    //检测验证码
+    $('input[name="yzm"]').blur(function(){
+        var checkcode = $(this).val();
+        o = $(this);
+        if(checkcode==''){
+            o.css('border-color','red');
+            yz = false;
+            return;
+        }
+        $.get('/register/checkcode',{checkcode:checkcode},function(data){
+            if(data==0){
+                o.css('border-color','green');
+                yz = true;
+            }else{
+                o.css('border-color','red');
+                yz = false;
+            }
+        })
+    });
+    //检测密码
+    $('input[name="password"]').blur(function(){
+        var password = $(this).val();
+        o = $(this);
+        if(password==''){
+            o.css('border-color','red');
+            pa = false;
+            return;
+        }
+        $.get('/register/checkpass',{password:password},function(data){
+            if(data==0){
+                o.css('border-color','green');
+                pa = true;
+            }else{
+                o.css('border-color','red');
+                pa = false;
+            }
+        })
+    });
+    //检测重复密码
+    $('input[name="repassword"]').blur(function(){
+        var repassword = $(this).val();
+        var password = $('input[name="password"]').val();
+        o = $(this);
+        if(repassword==''){
+            o.css('border-color','red');
+            repa = false;
+            return;
+        }
+        $.get('/register/checkrepass',{password:password,repassword:repassword},function(data){
+            if(data==0){
+                o.css('border-color','green');
+                repa = true;
+            }else{
+                o.css('border-color','red');
+                repa = false;
+            }
+        })
+    });
+    //提交检测
+    $('#cp1').click(function(){
+        $('input.check').trigger('blur');
+        if(yz==false||pa==false||repa==false){
+            return false;
+        }else{
+            var password = $('input[name="password"]').val();
+            $.get('/person/passchange',{password:password},function(data){
+                if(data==1){
+                    alert('修改成功,请重新登录');
+                    $(location).attr('href','/login/index');
+                }else{
+                    alert('修改失败');
+                }
+            })
+        }
+    });
+    //邮箱找回
+    $('#send').click(function(){
+        if(confirm('确定要想该邮箱发送邮件找回密码吗')){
+            var email = $('#email').html();
+            $.get('/person/send',{email:email},function(data){
+                // alert(data);return;
+                if(data==1){
+                    alert('邮件已发送，请修改完毕后再次登录');
+                }else{
+                    alert('邮件发送失败');
+                }
+            })
+        }
+    });
+    //绑定密保
+    $('#p2').click(function(){
+        var q1 = $('select[name="q1"]').find('option:selected').val();
+        var q2 = $('select[name="q2"]').find('option:selected').val();
+        var a1 = $('input[name="a1"]').val();
+        var a2 = $('input[name="a2"]').val();
+
+        $.ajax({
+            url: '/person/protectadd',
+            async: true,
+            data: {q1:q1,q2:q2,a1:a1,a2:a2},
+            success: function(data){
+                // alert(data);
+                if(data==1){
+                    alert('密保绑定成功');
+                    $(location).attr('href','/person/security');
+                }else{
+                    alert('密保绑定失败');
+                }
+            },
+            error: function(){
+                alert('请求失败');
+            }
+        })
+    });
+    //通过密保找回
+    $('#p1').click(function(){
+        var a1 = $('input[name="a1"]').val();
+        var a2 = $('input[name="a2"]').val();
+        // alert(a2);return;
+        $.ajax({
+            url: '/person/protectcheck',
+            async: true,
+            data: {a1:a1,a2:a2},
+            success: function(data){
+                // alert(data);
+                if(data==1){
+                    alert('成功回答密保问题，正在前往密码修改');
+                    $(location).attr('href','/person/protectpass');
+                }else{
+                    alert('密保问题回答错误');
+                }
+            },
+            error: function(){
+                alert('请求失败');
+            },
+        })
+    });
+    //解除密保
+    $('#prodel').click(function(){
+        if(confirm('确定解除密保吗')){
+            $(location).attr('href','/person/protectdel');
+        }
+    })
+</script>
+        
+{/block}

@@ -1,0 +1,150 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台用户列表
+{/block}
+
+{block name="admin"}
+<style>
+  .cuo{
+    border:1px solid red;
+  }
+</style>
+<div class="page-heading">
+            <h2>
+                管理员管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/adminusers/index"> 管理员 </a>
+                </li>
+                <li class="active"> 添加 </li>
+            </ul>
+</div>
+  <div class="panel-body">
+   <form class="form-horizontal adminex-form" method="post" action="/adminusers/insert"> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">管理员帐号</label> 
+     <div class="col-sm-10"> 
+      <input type="text" name="name" class="form-control" placeholder="6-16位，字母开头，字母数字下划线" style="width:500px;"/><span></span>
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">密码</label> 
+     <div class="col-sm-10"> 
+      <input type="password" name="password" class="form-control" placeholder="6-16位，字母数字下划线" style="width:500px;"/><span></span>
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">重复密码</label> 
+     <div class="col-sm-10"> 
+      <input type="password" name="repassword" class="form-control" placeholder="6-16位，字母数字下划线" style="width:500px;"/><span></span>
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">分配角色</label> 
+     <div class="col-sm-10"> 
+        <select class="form-control m-bot15" name="role" id="" style="width:500px">
+          {foreach $data as $row}
+            <option value="{$row['id']}">{$row['name']}</option>
+          {/foreach}
+        </select>
+     </div> 
+    </div> 
+     <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label"></label> 
+     <div class="col-sm-10"> 
+      <input type="submit" value="添加" class="btn btn-success" id="submit">
+      <input type="reset" value="重置" class="btn btn-info">
+     </div> 
+    </div> 
+   </form> 
+  </div>
+   <br>
+   
+  <script>
+    //用于判断提交按钮是否点击有效  全部都为true则点击有效   否则点击无效
+    var name=false;
+    var password=false;
+    var repassword=false;
+    //验证用户名
+    $('input[name=name]').blur(function(){
+      //验证用户名是否符合规则
+      if($(this).val().match(/^[A-Za-z]\w{5,15}$/)){
+        //符合规则去掉错误样式
+        $(this).removeClass('cuo');
+        $(this).next().html('');
+        th=$(this);
+          var val=$(this).val();
+          //符合规则再进行数据库是否重复验证
+          $.ajax({
+            dataType : 'json',
+            url : '/adminusers/ajax',
+            async : false,
+            data : {
+                "val" : val
+            },
+            success : function(data){
+              // alert(data);
+                if(data==1){
+                  //数据库已经存在用户名则添加错误样式
+                  th.addClass('cuo');
+                  th.next().html('管理员帐号已存在。').attr('style','color:red');
+                  name=false;
+                }else{
+                  name=true;
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status + "," + textStatus);
+            }
+        }); 
+      }else{
+        //不符合规则调价错误样式
+        $(this).addClass('cuo');
+        $(this).next().html('帐号格式错误。6-16位，字母开头，字母数字下划线').attr('style','color:red');
+        name=false;
+      }
+    })
+    //密码规则验证
+    $('input[name=password]').blur(function(){
+      if($(this).val().match(/^\w{6,16}$/)){
+        $(this).removeClass('cuo');
+        $(this).next().html('');
+        password=true;
+      }else{
+        $(this).addClass('cuo');
+        $(this).next().html('密码格式错误。6-16位，字母数字下划线').attr('style','color:red');
+        password=false;
+      }
+    })
+    //判断两次密码输入是否一直
+    $('input[name=repassword]').blur(function(){
+      if($(this).val().match(/^\w{6,16}$/)){
+        $(this).removeClass('cuo');
+        $(this).next().html('');
+        if($(this).val()!=$('input[name=password]').val()){
+           $(this).addClass('cuo');
+          $(this).next().html('两次密码输入不一致').attr('style','color:red');
+          repassword=false;
+        }else{
+          $(this).removeClass('cuo');
+          $(this).next().html('');
+          repassword=true;
+        }
+      }else{
+        $(this).addClass('cuo');
+        $(this).next().html('密码格式错误。6-16位，字母数字下划线').attr('style','color:red');
+        password=false;
+      }
+    })
+    //判断提交按钮是否点击有效
+    $('form').submit(function(){
+      if(name&&password&&repassword){
+        return true;
+      }else{
+        return false;
+      }
+    })
+  </script>
+
+{/block}

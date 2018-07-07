@@ -1,0 +1,65 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台用户列表
+{/block}
+
+{block name="admin"}
+<div style="margin-left:30px;margin-right:30px">
+<div class="page-heading">
+            <h2>
+                管理员管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="javascript:void(0)"> 权限 </a>
+                </li>
+                <li class="active"> 权限内容 </li>
+                <li class="active"> {$data[0]['name']} </li>
+            </ul>
+</div>
+  <form action="/nodes/edit">
+<table class="display table table-bordered table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >选择</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >权限名</th>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  <input type="hidden" name="id" value="{$data[0]['id']}">
+  {foreach $list as $row}
+    <tr class="gradeX odd">
+      <td class=" "><input type="checkbox" name="node[]" value="{$row['id']}" {if condition="in_array($row['id'],$arr)"}checked{/if}></td>
+      <td class=" ">{$row['name']}</td>
+    </tr>
+    {/foreach}
+    <tr>
+      <td colspan="2">
+        <p class="btn btn-info quanxuan">全选</p>
+        <p class="btn btn-success fanxuan">反选</p>
+        <p class="btn btn-danger buxuan">全不选</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <input type="submit" value="修改" class="btn btn-success">
+    </form>
+  </div>
+  <script>
+    $('p').click(function(){
+      var val=$(this).html();
+      switch(val){
+        case '全选':
+        $('input').attr('checked',true);
+        break;
+        case '全不选':
+        $('input').attr('checked',false);
+        break;
+        case '反选':
+        $('input').each(function(){
+          $(this).attr('checked',!$(this).attr('checked'))
+        })
+        break;
+      }
+    })
+  </script>
+{/block}

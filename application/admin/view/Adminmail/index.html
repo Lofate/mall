@@ -1,0 +1,42 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}站内信列表{/block}
+{block name="admin"}
+<div class="container">
+<div class="page-heading">
+            <h2>
+                站内信管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/adminmail/index">站内信</a>
+                </li>
+                <li class="active"> 列表 </li>
+            </ul>
+</div>
+<table class="display table table-bordered table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >ID</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >发件人</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >收件人</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >内容</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >发送时间</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >状态</th>
+    </tr>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  {foreach $list as $val}
+    <tr class="gradeX odd">
+      <td class=" ">{$val['id']}</td>
+      <td class=" ">{$val['sender']}</td>
+      <td class=" ">{$val['receiver']}</td>
+      <td class=" ">{$val['content']}</td>
+      <td class=" ">{$val['time']|date="Y-m-d H:i:s",###}</td>
+      <td class=" ">{if condition="$val['status']==0"}未读{elseif condition="$val['status']==1"}已读{/if}</td>
+    </tr>
+  {/foreach}
+  </tbody>
+</table>
+
+<div class="dataTables_paginate paging_bootstrap pagination"></div></div>
+{/block}

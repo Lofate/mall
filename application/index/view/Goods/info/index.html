@@ -1,0 +1,361 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    商品详情
+{/block}
+{block name="index"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <script type="text/javascript" src="/static/carts/js/jquery-1.8.3.min.js"></script>
+  <link rel="stylesheet" href="/static/lists/css2/customer.css">
+  <link rel="stylesheet" href="/static/lists/css2/goods_list.css">
+  <link rel="stylesheet" href="/static/lists/css2/pageguide.css">
+  <link rel="stylesheet" href="/static/lists/css2/product_detail.css">
+  <link rel="stylesheet" href="/static/lists/css2/public.css">
+  <link rel="stylesheet" href="/static/lists/css2/yiguo.css">
+  <script src="/static/lists/js/app.js"></script>
+  <script src="/static/lists/js/base.js"></script>
+  <script src="/static/lists/js/chat.js"></script>
+  <script src="/static/lists/js/city.js"></script>
+  <script src="/static/lists/js/common.js"></script>
+  <script src="/static/lists/js/core.js"></script>
+  <script src="/static/lists/js/dc.js"></script>
+  <script src="/static/lists/js/lazyload.min.js"></script>
+  <script src="/static/lists/js/floor-guide.js"></script>
+  <script src="/static/lists/js/global-v2.js"></script>
+  <script src="/static/lists/js/goods_list.js"></script>
+  <script src="/static/lists/js/handlebars-v3.0.1.js"></script>
+  <script src="/static/lists/js/jquery.cookie.js"></script>
+  <script src="/static/lists/js/jquery.js"></script>
+  <script src="/static/lists/js/jquery.superslide.js"></script>
+  <script src="/static/lists/js/pckit.js"></script>
+  <script src="/static/lists/js/search.js"></script>
+  <script src="/static/lists/js/sidebar.js"></script>
+  <script src="/static/lists/js/stats.js"></script>
+  <script src="/static/lists/js/utaste.js"></script>
+  <script src="/static/lists/js/util.js"></script>
+  <script src="/static/lists/js/ygm.dplus-0.5.js"></script>
+</head>
+<body>
+	<div class="header-nav"> 
+   <div class="wrap"> 
+    <!--商品分类 开始--> 
+    <div class="catalogs"> 
+     <div class="catalogs-title">
+      <a href="javascript:;">全部商品分类▼</a>
+     </div> 
+     <div class="catalogs-list" id="_categry" style="display: none;">{foreach name="data" item='row'}
+        <div class="item">        
+            <h3 class="t01_channelhome">
+              <a href="/homegoods/index/id/{$row['id']}"><i></i>{$row['name']}
+               <s>
+                &gt;
+               </s>
+              </a>
+            </h3> 
+           <div class="sub-item" style="display: none;"> 
+              <h4><a href="">{$row['name']}</a></h4> 
+                <div class="sub-list"> 
+                    {foreach name="row['shop']" item="rows"}
+                     <a href="/homegoods/index/id/{$rows['id']}" target="_blank">{$rows['name']}</a> 
+                    {/foreach}
+                </div>            
+           </div>          
+        </div> 
+        {/foreach}
+     </div> 
+    </div> 
+    <!--商品分类 结束--> 
+    <div class="nav-items"> 
+     <ul id="homenav"> 
+      <li><a href="" target="_blank">新品专区</a></li> 
+      <li><a href="" target="_blank">优质生活</a></li> 
+      <li><a href="" target="_blank">银行专区</a></li> 
+      <li><a href="" target="_blank">菜谱专栏</a></li> 
+     </ul> 
+    </div> 
+   </div> 
+  </div>
+   <div class="wrap"> 
+   <!--面包屑--> 
+   <div class="crumbs"> 
+    <a class="ml0" href="/index/index">首页</a> &gt; 
+    <a href="/homegoods/index/id/{$data5['pid']}">{$data6['name']}</a>&gt; 
+    <a href="/homegoods/index/id/{$data5['id']}">{$data5['name']}</a> &gt; {$data1['name']} 
+   </div> 
+   <!--产品详情--> 
+   <div class="content clearfix"> 
+    <div class="product-intro clearfix j_product"> 
+     <!--预览图--> 
+     <div class="pic-preview"> 
+      <div class="pic-big"> 
+       <img class="j_product_img" width="500" height="500" src="/uploads/{$data1['pic']}" style="display: block;" />
+      </div> 
+      <div class="pic-thumb"> 
+      </div> 
+      <div class="icon">
+       <img src="/static/lists/images/icon.png" width="46" height="46" />
+      </div> 
+     </div> 
+     <div class="product-info"> 
+      <div class="summary-name"> 
+       <h1>{$data1['name']}</h1> 
+       <p>{$data2['descr']}</p> 
+       <input type="hidden" name="CommodityId" id="CommodityId" value="3ab47736-74e6-422f-b6b9-05bb923d90b3" /> 
+      </div> 
+      <div class="summary-price clearfix"> 
+       <div class="pro-price"> 
+        <div> 
+         <span>价格：</span> 
+         <span><em>&yen;</em><strong>{$data1['price']}</strong></span> 
+        </div> 
+       </div> 
+       <div class="pro-review"> 
+        <p>总体满意度</p> 
+        <p><b>5.0</b> 分</p> 
+        <p><a href="#comment" id="pllabel"><span>(评论数87)</span></a></p> 
+       </div> 
+      </div> 
+      <div class="summary-other clearfix"> 
+       <div class="left"> 
+        <div id="commoditypromotions"></div> 
+        <div class="pro-promo clearfix" style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgb(217, 217, 217);"> 
+         <ul> 
+         </ul> 
+        </div> 
+        <div class="choose clearfix"> 
+         <div class="dt">
+          规格：
+         </div> 
+         <div class="dd"> 
+          <ul> 
+           <li class="selected"> <a href="JavaScript:void(0)"> <span>￥{$data1['price']}</span> <span>{$data1['size']}/盒</span> <i></i> </a> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="pro-service">
+         满百包邮，
+         <b>20:00</b> 前完成订单 预计明日
+         <b>(3月27日)</b>送达
+        </div> 
+        <div class="pro-service">
+         <i class="mr5"><img src="http://static01.yiguo.com/www/images/icon1.png" /></i>不支持7天无理由退货
+        </div> 
+        <div class="pro-amount clearfix"> 
+         <div class="dt">
+          数量：
+         </div> 
+         <div class="dd"> 
+          <div class="spinner value" maxlength="2"> 
+           <button class="decrease" disabled="disabled">-</button> 
+           <input type="text" class="spinner value" id="p_number" value="1" maxlength="2"/> 
+           <button class="increase">+</button> 
+          </div>
+          <input type="hidden" name="id" value="{$data1['id']}"> 
+          <div class="addcart">
+           <a class="btn-gn" href="javascript:;">加入购物车</a>
+          </div> 
+         </div> 
+        </div> 
+       </div>
+       <script>
+          $(document).ready(function(){
+            //获得文本框对象
+            var t=$('#p_number');
+            //初始化数量为1，并使减的功能失效
+            $('.decrease').attr('disabled',true);
+            //数量加操作
+            $('.increase').click(function(){
+              //给获取的val加上绝对值，避免出现负数
+              t.val(Math.abs(parseInt(t.val()))+1);
+              //判断当值不等于1的时候减功能可以使用
+              if(parseInt(t.val())!=1){
+                $('.decrease').attr('disabled',false);
+              };
+            })
+            //数量减操作
+            $('.decrease').click(function(){
+              t.val(Math.abs(parseInt(t.val()))-1);
+              //当值为1的时候禁用减功能
+              if(parseInt(t.val())==1){
+                $('.decrease').attr('disabled',true);
+              };
+            })
+          });
+       </script> 
+       <div class="right"> 
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" class="zx"> 
+         <tbody> 
+          <tr>
+           <th>原产地：</th>
+           <td>{$data2['address']}</td>
+          </tr> 
+          <tr>
+           <th>商品编号：</th>
+           <td>1321126</td>
+          </tr> 
+          <tr>
+           <th>品牌：</th>
+           <td>易盒生活</td>
+          </tr> 
+          <tr>
+           <th>发货地：</th>
+           <td>{$data2['ship_address']}</td>
+          </tr> 
+         </tbody> 
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="content clearfix"> 
+    <!--左侧--> 
+    <div class="left-con"> 
+     <div class="GetArtical"></div> 
+     <div id="RecentViewCommodity" style="display:none;"> 
+      <div class="box recently"> 
+       <div class="hd">
+        最近浏览
+        <a href="javascript:;" onclick="ClearViewedCommodity()">清空</a>
+       </div> 
+       <div class="bd" id="recentcommodity"> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="box recommend"> 
+      <div class="hd">
+       猜你喜欢
+      </div> 
+      <div class="bd"> 
+      {foreach name="data4" item="row"}
+       <div class="p j_product" _code="1308578"> 
+        <div class="img"> 
+         <a href="/homegoodsinfo/index/id/{$row['id']}" target="_blank"> <img  width="68" height="68" class="j_product_img lazy" src="/uploads/{$row['pic']}" style="display: inline;" /> </a> 
+        </div> 
+        <div class="txt"> 
+         <a href="/homegoodsinfo/index/id/{$row['id']}" target="_blank"> <strong>{$row['name']}</strong> <span>&yen;{$row['price']}</span> </a> 
+        </div> 
+        <a class="add" style="display: none;" onclick="G.app.cart.module.addToCart(this,'1308578',1,app.referCart)">加入购物车</a> 
+       </div>
+       {/foreach}   
+      </div> 
+     </div> 
+     <script type="text/javascript">
+    $(function () {
+        $("img.lazy").lazyload({ effect: "fadeIn" });
+    })
+</script> 
+    </div> 
+    <!--右侧--> 
+    <div class="main-con"> 
+     <!--当季热卖--> 
+     <div id="GetHotCommodity"> 
+      <div class="hot-sale"> 
+       <div class="hd">
+        当季热卖
+       </div> 
+       <div class="bd clearfix"> 
+        <ul> 
+         <li> 
+          <div class="p-img"> 
+           <a href="http://www.yiguo.com/product/156105.html" target="_blank"> <img src="http://img14.yiguoimg.com/d/items/2017/171025/9288714244006745_300.jpg" width="135" height="135" /> </a> 
+          </div> 
+          <div class="p-name">
+           <a href="http://www.yiguo.com/product/156105.html" target="_blank">原膳烟熏三文鱼(切片)200g</a>
+          </div> 
+          <div class="p-price"> 
+           <strong>&yen;45.90</strong> 
+           <del>
+             ￥45.90 
+           </del> 
+          </div> </li> 
+         <li> 
+          <div class="p-img"> 
+           <a href="http://www.yiguo.com/product/152250.html" target="_blank"> <img src="http://img06.yiguoimg.com/e/web/170224/101410/170224101410824_152250_300.jpg" width="135" height="135" /> </a> 
+          </div> 
+          <div class="p-name">
+           <a href="http://www.yiguo.com/product/152250.html" target="_blank">澳洲腱子心1kg</a>
+          </div> 
+          <div class="p-price"> 
+           <strong>&yen;84.00</strong> 
+           <del>
+             ￥99.00 
+           </del> 
+          </div> </li> 
+         <li> 
+          <div class="p-img"> 
+           <a href="http://www.yiguo.com/product/104135.html" target="_blank"> <img src="http://img13.yiguoimg.com/d/items/2018/180119/9288718251729971_300.jpg" width="135" height="135" /> </a> 
+          </div> 
+          <div class="p-name">
+           <a href="http://www.yiguo.com/product/104135.html" target="_blank">苏北散养童子鸡600g</a>
+          </div> 
+          <div class="p-price"> 
+           <strong>&yen;19.80</strong> 
+           <del>
+             ￥19.80 
+           </del> 
+          </div> </li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+     <!--商品详情--> 
+     <div class="product-detail"> 
+      <div class="detail-tab"> 
+       <ul class="detail-ul"> 
+        <li class="active"><a href="#details">商品详情</a></li> 
+       </ul> 
+       <div class="addcart">
+        <a href="javascript:;" onclick="G.app.cart.module.addToCart(this,'1321126',$('#p_number').val(),app.referCart);">加入购物车</a>
+       </div> 
+      </div> 
+      <div class="detail-content"> 
+       <!--商品详情--> 
+       <div class="detail-item details clearfix" id="details" style="display: block;"> 
+        <div id="ProductAttribute"> 
+         <table class="detail-table"> 
+          <tbody> 
+           <tr> 
+            <th>商品状态</th> 
+           </tr> 
+          </tbody> 
+         </table> 
+        </div> 
+        <p><img class="lazy" data-original="http://img09.yiguoimg.com/d/images/2017/171019/513691872326034259_880x327.jpg" style="display: block;" src="http://img09.yiguoimg.com/d/images/2017/171019/513691872326034259_880x327.jpg" /></p>
+        <p><img class="lazy" data-original="http://img09.yiguoimg.com/d/images/2017/171019/513691872326099795_880x576.jpg" style="display: block;" src="http://img09.yiguoimg.com/d/images/2017/171019/513691872326099795_880x576.jpg" /></p>
+        <p><img class="lazy" data-original="http://img12.yiguoimg.com/d/images/2017/171019/513691872326067027_880x611.jpg" style="display: block;" src="http://img12.yiguoimg.com/d/images/2017/171019/513691872326067027_880x611.jpg" /></p>
+        <p><img class="lazy" data-original="http://img14.yiguoimg.com/d/images/2017/171019/513691872326132563_880x634.jpg" style="display: block;" src="http://img14.yiguoimg.com/d/images/2017/171019/513691872326132563_880x634.jpg" /></p>
+        <p><img class="lazy" data-original="http://img11.yiguoimg.com/d/images/2017/171019/513691872326165331_880x459.jpg" style="display: block;" src="http://img11.yiguoimg.com/d/images/2017/171019/513691872326165331_880x459.jpg" /></p>
+        <p><img class="lazy" data-original="http://img14.yiguoimg.com/d/images/2017/171019/513691872326198099_880x357.jpg" style="display: block;" src="http://img14.yiguoimg.com/d/images/2017/171019/513691872326198099_880x357.jpg" /></p>
+        <p><img class="lazy" data-original="http://img13.yiguoimg.com/d/images/2017/171019/513691872326263635_880x506.jpg" style="display: block;" src="http://img13.yiguoimg.com/d/images/2017/171019/513691872326263635_880x506.jpg" /></p>
+        <p><img class="lazy" data-original="http://img14.yiguoimg.com/d/images/2017/171019/513691872326296403_880x451.jpg" style="display: block;" src="http://img14.yiguoimg.com/d/images/2017/171019/513691872326296403_880x451.jpg" /></p>
+        <p><img class="lazy" data-original="http://img09.yiguoimg.com/d/images/2017/171019/513691872326230867_880x756.jpg" style="display: block;" src="http://img09.yiguoimg.com/d/images/2017/171019/513691872326230867_880x756.jpg" /></p>
+        <p><img class="lazy" data-original="http://img14.yiguoimg.com/d/images/2017/171019/513691872326361939_880x575.jpg" style="display: block;" src="http://img14.yiguoimg.com/d/images/2017/171019/513691872326361939_880x575.jpg" /></p>
+        <p><img class="lazy" data-original="http://img12.yiguoimg.com/d/images/2017/171019/513691872326329171_880x238.jpg" style="display: block;" src="http://img12.yiguoimg.com/d/images/2017/171019/513691872326329171_880x238.jpg" /></p>
+        <p><br /></p> 
+        <p><img class="lazy" width="880" data-original="http://img13.yiguoimg.com/d/images/2017/171027/513691872596960091_1125x414.jpg" style="display: block;" src="http://img13.yiguoimg.com/d/images/2017/171027/513691872596960091_1125x414.jpg" /></p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>
+</body>
+
+<script type="text/javascript">
+  $(".btn-gn").click(function(){
+    var id=$(this).parent().prev().val();
+    var num=$("#p_number").val();
+    $.get("/homegoodsinfo/addcart",{id:id,num:num},function(data){
+      if(data){
+        alert("添加成功");
+      }else{
+        alert("添加失败");
+      }
+    });
+  });
+</script>
+</html>
+{/block}

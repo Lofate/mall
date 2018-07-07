@@ -1,0 +1,153 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <p>收件箱</p><hr>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>编号</th>
+            <th>发件人</th>
+            <th>内容</th>
+            <th>时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        {if condition="$list"}
+            {foreach $list as $val}
+                    <tr>
+                        <td>{$val['id']}</td>
+                        <td>{$val['sender']}</td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{$val['id']}">查看</button>
+                            <div class="modal fade" id="myModal{$val['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">信件内容</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    {$val['content']}
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" info="{$val['id']}" class="btn btn-default look" data-dismiss="modal">关闭</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div></td>
+                        <td>{$val['time']|date="Y-m-d H:i:s",###}</td>
+                        <td>{if condition="$val['status']==0"}<span style="color:red">未读</span>{else}<span style="color:green">已读</span>{/if}</td>
+                        <td><a href="/person/maildel/id/{$val['id']}" class="btn btn-danger">删除</a></td>
+                    </tr>
+            {/foreach}
+        {else}
+            <tr>
+                <td>暂无信件</td>
+            </tr>
+        {/if}
+    </table>
+    <br>
+    <p>写信件</p><hr>
+    <div class="panel-body">
+   <form class="form-horizontal adminex-form" method="post" action="/person/mailsend"> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">发件人</label> 
+     <div class="col-sm-10"> 
+      {$Request.session.username}
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">收件人</label> 
+     <div class="col-sm-10"> 
+      <input type="text" class="form-control receiver" style="width:500px;" name="receiver" placeholder="输入收件人帐号（多人用‘,’逗号隔开）" maxlength="16" /> 
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label">内容</label> 
+     <div class="col-sm-10"> 
+     <script id="editor" type="text/plain" name="content" style="width:500px;height:300px;"></script>
+     </div> 
+    </div> 
+    <div class="form-group"> 
+     <label class="col-sm-2 col-sm-2 control-label"></label> 
+     <div class="col-sm-10"> 
+      <input type="submit" value="发送" class="btn btn-success">
+     </div> 
+    </div> 
+   </form>
+   </div> 
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    var ue = UE.getEditor('editor');
+    $('.look').click(function(){
+        var id=$(this).attr('info');
+        // alert(id);
+        $.ajax({
+            type:'get',
+            url:'/person/mailajax',
+            async : true,
+            dataType : 'json',
+            data:{
+                'id':id
+            }
+        })
+        // $('#read').attr('style','color:green').html('已读');
+        a=$(this).parents('td').next().next().children('span').html('已读').attr('style','color:green');
+        // alert(a);
+    })
+</script>
+</body>
+        
+{/block}

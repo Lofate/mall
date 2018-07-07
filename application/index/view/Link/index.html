@@ -1,0 +1,21 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}友情链接申请{/block}
+{block name="index"}
+<!-- <link href="/static/login/public.css" rel="stylesheet"> -->
+<link href="/static/login/login.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<center>
+<form action="/homelink/apply" method="post">
+<div class="login">
+    <div class="wrap clearfix">
+        <div class="login-main">
+            <p>链接名称<input class="form-control check" name="name" type="text"></p>
+            <p>链接地址<input class="form-control check" name="address" type="text" value="http://"></p>
+            <p><input type="submit" class="btn btn-success" value="提交"></p>
+        </div>
+    </div>
+</div>
+</form>
+</center>
+
+{/block}

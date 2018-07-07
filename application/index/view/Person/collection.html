@@ -1,0 +1,136 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}个人中心{/block}
+{block name="index"}
+<link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<body>
+<div class="wrap" style="margin-top:20px;">
+                    <!--面包屑-->
+                <div class="crumbs">首页&gt;我的易果<span class="j_thridcrumbs hide">&gt;<a href="javascript:void(0)" class="on j_thirdnav">个人资料</a></span></div>
+            <div class="content myyg">
+                    <div class="sub">
+                        <div class="menu j_menu" style="width:200px;float:left;">
+                            <dl>
+                                <dt>交易信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/orders">我的订单</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/coupons">我的优惠券</a></li> -->
+                                        <li class="list-group-item"><a href="/person/mybuy">我购买过的商品</a></li>
+                                        <li class="list-group-item"><a href="/person/collection">我的收藏</a></li>
+                                        <li class="list-group-item"><a href="/person/assess">我的评论</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>账号信息</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/profile">个人资料</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/money">账户余额</a></li> -->
+                                        <li class="list-group-item"><a href="/person/security">账号安全</a></li>
+                                        <li class="list-group-item"><a href="/person/address">收货地址管理</a></li>
+                                    </ul>
+                                </dd>
+                                <dt>会员服务</dt>
+                                <dd>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/person/mail">站内信</a></li>
+                                        <!-- <li class="list-group-item"><a href="/person/advice">投诉建议</a></li> -->
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+<!-- 个人中心首页个人信息 开始 -->
+<div class="main profile" style="float:right;">
+    <div class="title">我的收藏</div><br>
+    <table class="table table-striped">
+    <thead>
+    <tr align="center"> 
+            <td>序号</td>
+            <td>商品信息</td>
+            <td>单价</td>
+            <td>购买数量</td>
+            <td>合计</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody>
+    {foreach name="data" item="row"}
+        <tr  >
+            <td align="center" style="line-height: 100px">{$i++}</td>
+            <td><a href="/homegoodsinfo/index/id/{$row['gid']}"><img src="/uploads/{$row['pic']}" alt="" width="100px" height="100px">{$row['gname']}</a></td>
+            <td align="center" style="line-height: 100px">{$row['price']}</td>
+            <td align="center" style="line-height: 100px;font-size:20px"><botton class="btn btn-success jian"  name="{$row['id']}">-</botton><input type="text" value="{$row['size']}" style="width:40px;height:40px"><botton class="btn btn-success jia"  name="{$row['id']}">+</botton></td>
+            <td align="center" style="line-height: 100px">{$row['price']*$row['size']}</td>
+            <td style="line-height: 100px"><a href="/person/Collectiondel/id/{$row['id']}">删除</a></td>
+        </tr>
+        {/foreach}
+        <tr>
+
+            <td colspan="6" align="right">{$page}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<!-- 个人中心首页个人信息 结束 -->
+                    </div>
+
+<link href="http://static01.yiguo.com/utaste/css/profile.css" rel="stylesheet" type="text/css">
+            
+
+            </div>
+</div>
+</body>
+<script>
+    $('#phonesubmit').click(function(){
+        var phone = $('input[name="phone"]').val();
+        // alert(phone);
+        $.post('/person/phonechange',{phone:phone},function(data){
+            // alert(data);
+            if(data==1){
+                alert('修改成功');
+                $('#op').html(phone);
+            }else{
+                alert('修改失败');
+            }
+        });
+    });
+    $('#mailsubmit').click(function(){
+        var email = $('input[name="email"]').val();
+        // alert(email);
+        $.post('/person/mailchange',{email:email},function(data){
+            // alert(data);
+            if(data==1){
+                alert('修改成功');
+                $('#om').html(email);
+            }else{
+                alert('修改失败');
+            }
+        });
+    });
+
+    //加
+    $('.jia').click(function(){
+        id=$(this).attr('name');
+        o=$(this);
+        $.get("/Person/jia",{id:id},function(data){
+            o.prev('input').val(data.size);
+             o.parents('tr').find('td:eq(4)').html(data.tot);
+        },'json');
+        // alert(id);
+    });
+
+    
+    //减
+    $('.jian').click(function(){
+        // alert($);
+        id=$(this).attr('name');
+        o=$(this);
+        $.get("/Person/jian",{id:id},function(data){
+            o.next('input').val(data.size);
+            o.parents('tr').find('td:eq(4)').html(data.tot);
+        },'json');
+    });
+</script>
+        
+{/block}

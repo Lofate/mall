@@ -1,0 +1,110 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台用户列表
+{/block}
+
+{block name="admin"}
+<div style="margin-left:30px;margin-right:30px">
+<div class="page-heading">
+            <h2>
+                管理员管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/roles/index"> 角色 </a>
+                </li>
+                <li class="active"> 列表 </li>
+            </ul>
+</div>
+<table class="display table table-bordered table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >编号</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >角色名</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >状态</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >权限内容</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-sort="descending" aria-label="CSS grade: activate to sort column ascending" style="width: 170px;">操作</th></tr>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  {foreach $list as $row}
+      <tr class="gradeX odd">
+      <td class=" " >{$i++}</td>
+      <td class=" ">{$row['name']}</td>
+      <!-- 将数据表中的数字转台转换为文字 -->
+      <td class=" ">{if condition="$row['status']==1"}<button class="btn btn-info" info="{$row['id']}">可用</button>{else}<button class="btn btn-danger" info="{$row['id']}">禁用</button>{/if}</td>
+      <td class=""><a href="/nodes/index/id/{$row['id']}" class="btn btn-success">管理权限内容</a></td>
+      <td class=""><a href="/roles/delete/id/{$row['id']}" class="btn btn-danger del">删除</a> <a href="/roles/edit/id/{$row['id']}" class="btn btn-info">修改</a></td>
+    </tr>
+    {/foreach}
+  </tbody>
+</table>
+  <div class="dataTables_paginate paging_bootstrap pagination">{$list->render()}</div>
+  </div>
+  <script>
+  //强调是否删除
+    $('.del').click(function(){
+      var r=confirm('确定删除?');
+      if(r){
+        return true;
+      }else{
+        return false;
+      }
+    })
+  // 实现状态按钮点击切换状态
+    $('button').click(function(){
+      //判断当前状态
+      if($(this).html()=='可用'){
+        th=$(this);
+        var id=$(this).attr('info');
+        var status=0;
+        // ajax修改数据库状态字段
+        $.ajax({
+            dataType : 'json',
+            url : '/roles/ajax',
+            async : true,
+            data : {
+                "id" : id,
+                "status" : status
+            },
+            success : function(data){
+              // alert(data);
+              // 判断是否成功
+              if(data==1){
+                //数据库修改成功，进行页面状态按钮变换
+                th.removeClass('btn-info').addClass('btn-danger').html('禁用');
+              }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status + "," + textStatus);
+            }
+        }); 
+      }else{
+        
+        th=$(this);
+        var id=$(this).attr('info');
+        var status=1;
+        $.ajax({
+            dataType : 'json',
+            url : '/roles/ajax',
+            async : true,
+            data : {
+                "id" : id,
+                "status" : status
+            },
+
+            success : function(data){
+              // alert(data);
+              // 判断数据库是否修改成功
+              if(data==1){
+                //数据库修改成功，进行页面状态按钮变换
+                th.removeClass('btn-danger').addClass('btn-info').html('可用');
+              }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status + "," + textStatus);
+            }
+        }); 
+      }
+    })
+  </script>
+{/block}

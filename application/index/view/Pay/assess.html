@@ -1,0 +1,111 @@
+{extend name="IndexPublic:public"/}
+{block name="title"}
+    评价页面
+{/block}
+
+{block name="index"}
+
+  <html>
+ <head>
+  <!-- <link href="/static/orderinfo/css/public.css" type="text/css" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="/static/orderinfo/css/base.css">
+  <script type="text/javascript" src="/static/orderinfo/js/jquery_cart.js.下载"></script>
+  <link rel="stylesheet" type="text/css" href="/static/orderinfo/css/buyConfirm.css">
+  <link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+  <script src="/static/orderinfo/js/jquery-1.11.1.min.js.下载" type="text/javascript"></script>
+  <script src="/static/orderinfo/js/unslider.min.js.下载" type="text/javascript"></script>
+  <script src="/static/orderinfo/js/index.js.下载" type="text/javascript"></script>
+
+ </head>
+ <body>
+  <div class="border_top_cart"> 
+   <div class="container payment-con"> 
+    <form action="/homepay/add" id="pay-form" method="post"> 
+      
+     <div class="order-info"> 
+      <div class="msg"> 
+       <h3>付款成功！</h3> 
+       <p></p> 
+       <p class="post-date">成功付款后，7天内发货</p> 
+      </div> 
+      <div class="icon-box"> 
+       <i class="iconfont"><img src="/static/orderinfo/img/yes_ok.png" /></i> 
+      </div> 
+     </div>
+     <div class="main profile" >
+    <div class="title">我的评价</div><br>
+    <table class="table table-striped">
+    <thead>
+    <tr> 
+            <td>商品</td>
+            <td>评价</td>
+        </tr>
+    </thead>
+    <tbody>
+ 
+        <tr>
+          <td>
+          {foreach name="arr" item="row"}
+            <li><img src="/uploads/{$row['pic']}" width="50px" height="50px">{$row['name']}</li>
+            <input type="hidden" name="order_id" value="{$order_id}">
+            <input type="hidden" name="good_id" value="{$row['good_id']}">
+          {/foreach}
+        </td>
+            <td  style="line-height: 100px"><a href="JavaScript:void(0)"><img src="/static/carts/img/white.png" class="one" title="1星"><img src="/static/carts/img/white.png" class="one" title="2星"><img src="/static/carts/img/white.png" class="one" title="3星"><img src="/static/carts/img/white.png" class="one" title="4星"><img src="/static/carts/img/white.png" class="one" title="5星"></a></td>
+            <input type="hidden" name="good_score" class="g">
+        </tr>
+        <tr>
+          <td>服务评价</td>
+          <td><img src="/static/carts/img/white.png" class="two" title="1星"><img src="/static/carts/img/white.png" class="two" title="2星"><img src="/static/carts/img/white.png" class="two" title="3星"><img src="/static/carts/img/white.png" class="two" title="4星"><img src="/static/carts/img/white.png" class="two" title="5星"></a></td>
+          <input type="hidden" name="service_score" class="s">
+        </tr>
+        <tr>
+          <td>配送速度评分</td>
+          <td><img src="/static/carts/img/white.png" class="three" title="1星"><img src="/static/carts/img/white.png" class="three" title="2星"><img src="/static/carts/img/white.png" class="three" title="3星"><img src="/static/carts/img/white.png" class="three" title="4星"><img src="/static/carts/img/white.png" class="three" title="5星"></a></td>
+          <input type="hidden" name="time_score" class="t">
+        </tr>
+        <tr>
+          <td>评价内容</td>
+          <td><textarea name="content" id="" cols="30" rows="10" placeholder="请输入您对商品的评价"></textarea></td>
+        </tr>
+    </tbody>
+</table>
+        <input class="submit" type="submit" value="提交" style="float:right;">
+</div> 
+    </form>
+
+   </div> 
+   <script>
+     $('.one').click(function(){
+      $(this).prevAll().attr("src","/static/carts/img/red.png");
+      $(this).attr("src","/static/carts/img/red.png");
+      $(this).nextAll().attr("src","/static/carts/img/white.png");
+      g=$(".one[src='/static/carts/img/red.png']").length;
+      // alert(g);
+      $('.g').val(g);
+     });
+     $('.two').click(function(){
+      $(this).prevAll().attr("src","/static/carts/img/red.png");
+      $(this).attr("src","/static/carts/img/red.png");
+      $(this).nextAll().attr("src","/static/carts/img/white.png");
+      s=$(".two[src='/static/carts/img/red.png']").length;
+      $('.s').val(s);
+     });
+     $('.three').click(function(){
+      $(this).prevAll().attr("src","/static/carts/img/red.png");
+      $(this).attr("src","/static/carts/img/red.png");
+      $(this).nextAll().attr("src","/static/carts/img/white.png");
+      t=$(".three[src='/static/carts/img/red.png']").length;
+      // alert(t);
+      $('.t').val(t);
+     });
+
+   </script>
+   <!-- 余额支付弹框 --> 
+   <script src="/static/orderinfo/js/base.min.js"></script> 
+   <script type="text/javascript" src="/static/orderinfo/js/buyConfirm.js"></script> 
+  </div>
+ </body>
+</html>
+
+{/block}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>{block name="title"}{/block}</title>
+
+  <!--icheck-->
+  <link href="/static/admins/adminindex/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+  <link href="/static/admins/adminindex/js/iCheck/skins/square/square.css" rel="stylesheet">
+  <link href="/static/admins/adminindex/js/iCheck/skins/square/red.css" rel="stylesheet">
+  <link href="/static/admins/adminindex/js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+  <!--dashboard calendar-->
+  <link href="/static/admins/adminindex/css/clndr.css" rel="stylesheet">
+
+  <!--Morris Chart CSS -->
+  <link rel="stylesheet" href="/static/admins/adminindex/js/morris-chart/morris.css">
+
+  <!--common-->
+  <link href="/static/admins/adminindex/css/style.css" rel="stylesheet">
+  <link href="/static/admins/adminindex/css/style-responsive.css" rel="stylesheet">
+
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="/static/admins/adminindex/js/html5shiv.js"></script>
+  <script src="/static/admins/adminindex/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="index.html"><img src="/static/admins/adminindex/images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="index.html"><img src="/static/admins/adminindex/images/logo_icon.png" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-user">
+                    <img alt="" src="/static/admins/adminindex/images/photos/user-avatar.png" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">John Doe</a></h4>
+                        <span>"Hello There..."</span>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Account Information</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                  <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                  <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+                  <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="active"><a href="/admin/index"><i class="fa fa-home"></i> <span>后台首页</span></a></li>
+                <li class="menu-list"><a href=""><span>管理员管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/adminusers/index"> 管理员列表</a></li>
+                        <li><a href="/adminusers/add"> 管理员添加</a></li>
+                        <li><a href="/roles/index"> 角色列表</a></li>
+                        <li><a href="/roles/add"> 角色添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>用户管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/users/index"> 用户列表</a></li>
+                        <li><a href="/users/add"> 用户添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>分类管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/cates/index"> 分类列表</a></li>
+                        <li><a href="/cates/add"> 分类添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>公告管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/notice/index"> 公告列表</a></li>
+                        <li><a href="/notice/add"> 公告添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>广告管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/ads/index"> 广告列表</a></li>
+                        <li><a href="/ads/add"> 广告添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>轮播图管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/pics/index"> 轮播图列表</a></li>
+                        <li><a href="/pics/add"> 轮播图添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>商品管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/goods/index"> 商品列表</a></li>
+                        <li><a href="/goods/add"> 商品添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>订单管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/orders/index"> 订单列表</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>友情链接管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/link/index"> 友情链接列表</a></li>
+                        <li><a href="/link/add"> 友情链接添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>用户评价管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/assess/index"> 用户评价列表</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>站内信管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/adminmail/index"> 站内信列表</a></li>
+                        <li><a href="/adminmail/add"> 站内信添加</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><span>商品限时抢购</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/shopping/index"> 抢购列表</a></li>
+                        <li><a href="/shopping/add"> 抢购商品添加</a></li>
+                    </ul>
+                </li>
+                <li class=""><a href="/customer/index"><span>客服</span></a>
+                </li>
+
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+
+            <!--search start-->
+            <!-- <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form> -->
+            <!--search end-->
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>                       
+                        <div class="dropdown-menu dropdown-menu-head pull-right">                            
+                        </div>
+                    </li>                  
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="/static/admins/adminindex/images/photos/user-avatar.png" alt="" />
+                            {$Request.session.name}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                         <!--    <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li> -->
+                            <li><a href="/adminlogin/loginout"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+        
+
+
+    
+        <!--body wrapper start-->
+        {block name="admin"}{/block}
+        
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <!-- <footer>
+            2018 &copy; project by <a href="http://www.mycodes.net/" target="_blank">HZ-PHP15</a>
+        </footer> -->
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="/static/admins/adminindex/js/jquery-1.10.2.min.js"></script>
+<script src="/static/admins/adminindex/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/static/admins/adminindex/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/admins/adminindex/js/bootstrap.min.js"></script>
+<script src="/static/admins/adminindex/js/modernizr.min.js"></script>
+<script src="/static/admins/adminindex/js/jquery.nicescroll.js"></script>
+
+<!--easy pie chart-->
+<script src="/static/admins/adminindex/js/easypiechart/jquery.easypiechart.js"></script>
+<script src="/static/admins/adminindex/js/easypiechart/easypiechart-init.js"></script>
+
+<!--Sparkline Chart-->
+<script src="/static/admins/adminindex/js/sparkline/jquery.sparkline.js"></script>
+<script src="/static/admins/adminindex/js/sparkline/sparkline-init.js"></script>
+
+<!--icheck -->
+<script src="/static/admins/adminindex/js/iCheck/jquery.icheck.js"></script>
+<script src="/static/admins/adminindex/js/icheck-init.js"></script>
+
+<!-- jQuery Flot Chart-->
+<script src="/static/admins/adminindex/js/flot-chart/jquery.flot.js"></script>
+<script src="/static/admins/adminindex/js/flot-chart/jquery.flot.tooltip.js"></script>
+<script src="/static/admins/adminindex/js/flot-chart/jquery.flot.resize.js"></script>
+
+
+<!--Morris Chart-->
+<script src="/static/admins/adminindex/js/morris-chart/morris.js"></script>
+<script src="/static/admins/adminindex/js/morris-chart/raphael-min.js"></script>
+
+<!--Calendar-->
+<script src="/static/admins/adminindex/js/calendar/clndr.js"></script>
+<script src="/static/admins/adminindex/js/calendar/evnt.calendar.init.js"></script>
+<script src="/static/admins/adminindex/js/calendar/moment-2.2.1.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore./static/admins/adminindex/js/1.5.2/underscore-min.js"></script>
+
+<!--common scripts for all pages-->
+<script src="/static/admins/adminindex/js/scripts.js"></script>
+
+<!--Dashboard Charts-->
+<script src="/static/admins/adminindex/js/dashboard-chart-init.js"></script>
+
+
+</body>
+</html>

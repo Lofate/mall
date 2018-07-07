@@ -1,0 +1,79 @@
+{extend name="AdminPublic:public"/}
+{block name="title"}
+    后台商品管理列表
+{/block}
+
+{block name="admin"}
+<div class="page-heading">
+            <h2>
+                商品管理
+            </h2>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/shopping/add"> 添加 </a>
+                </li>
+                <li class="active"> 列表 </li>
+            </ul>
+</div>
+<table class="display table table-bordered table-hover table-striped dataTable" id="dynamic-table" aria-describedby="dynamic-table_info">
+  <thead>
+    <tr role="row">
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" >ID</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >商品名称</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >商品价格</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >商品图片</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >抢购时间</th>
+      <th class="sorting" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >状态</th>
+      <th class="hidden-phone sorting_desc" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-sort="descending" aria-label="CSS grade: activate to sort column ascending" style="width: 170px;">操作</th></tr>
+  </thead>
+  <tbody role="alert" aria-live="polite" aria-relevant="all">
+  {foreach name='arr' item='row'} 
+    <tr class="gradeX odd" >
+      <td class=" center hidden-phone">{$row['id']}</td>
+      <td class="center hidden-phone ">{$row['name']}</td>
+      <td class=" center hidden-phone">{$row['price']}</td>
+      <td class="center hidden-phone "><img src="/uploads/{$row['pic']}" width="100px" height="100px"></td>
+
+      <td>{$data[$key]['hour']}:{$data[$key]['min']}</td>
+      <td class="center hidden-phone "  >
+      {if condition="$data[$key]['status'] eq 0"}<p  class='btn btn-success show1' >下架</p>{/if}
+      {if condition="$data[$key]['status'] eq 1"}<p  class='btn btn-success show1' >上架</p>{/if}
+      </td>
+      <td class="center hidden-phone"><a href="/shopping/delete/goods_id/{$row['id']}" class="btn btn-success">删除</a> <a href="/shopping/edit/goods_id/{$row['id']}" class="btn btn-info">修改</a></td>
+  {/foreach}
+    </tr>
+  </tbody>
+</table>
+<script>
+  $(".show1").click(function(){
+    id=$(this).parents("tr").find("td:first").html();
+    // alert(id);
+    o=$(this).html();
+    // alert(o);
+    td=$(this);
+    $.ajax({
+      'type':"get",
+      'url':'/shopping/Ajax',
+      'datatype':'json',
+      'async':'true',
+      'data':{id:id},
+      success:
+      function(data){
+        if(data==1){
+          if(o=="上架"){
+            td.html('下架');      
+          }else{
+            td.html('上架');
+          }
+        }
+        var_dump($data);
+        // console.log(data);
+      },
+      error:
+      function(){
+        alert('Ajax响应失败');
+      }
+    })
+  })
+</script>
+{/block}
